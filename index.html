@@ -319,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Graph/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Binary-Search/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayueb">
@@ -339,7 +339,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/02/Graph/" class="post-title-link" itemprop="url">Graph Questions</a>
+                <a href="/2019/03/02/Binary-Search/" class="post-title-link" itemprop="url">Binary Search</a>
               
             
           </h1>
@@ -364,7 +364,393 @@
                 
               
 
-              <time title="Created: 2019-03-02 00:46:51 / Modified: 01:14:37" itemprop="dateCreated datePublished" datetime="2019-03-02T00:46:51-05:00">2019-03-02</time>
+              <time title="Created: 2019-03-02 20:21:32 / Modified: 20:31:05" itemprop="dateCreated datePublished" datetime="2019-03-02T20:21:32-05:00">2019-03-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Find-the-first-element-gt-target"><a href="#Find-the-first-element-gt-target" class="headerlink" title="Find the first element &gt;= target"></a>Find the first element &gt;= target</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int binarySearch(int[] arr, int target) &#123;</span><br><span class="line">    int low = 0;</span><br><span class="line">    int high = arr.length - 1;</span><br><span class="line">    while (low &lt; high) &#123; // no equal here</span><br><span class="line">        int mid = (low + high) / 2;</span><br><span class="line">        if (arr[mid] &lt; target) &#123; // mid is not possible to be the answer</span><br><span class="line">            low = mid + 1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            high = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Leetcode-today-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayueb">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notes++">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/02/Leetcode-today-3/" class="post-title-link" itemprop="url">Leetcode today 3</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-02 10:08:45" itemprop="dateCreated datePublished" datetime="2019-03-02T10:08:45-05:00">2019-03-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-03 02:28:19" itemprop="dateModified" datetime="2019-03-03T02:28:19-05:00">2019-03-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="261-Graph-Valid-Tree"><a href="#261-Graph-Valid-Tree" class="headerlink" title="261. Graph Valid Tree"></a>261. Graph Valid Tree</h2><ul>
+<li>N nodes only has N-1 edges; A new edge cannot have its two nodes in the set before</li>
+<li>Union Find</li>
+</ul>
+<h2 id="323-Number-of-Connected-Components-in-an-Undirected-Graph"><a href="#323-Number-of-Connected-Components-in-an-Undirected-Graph" class="headerlink" title="323. Number of Connected Components in an Undirected Graph"></a>323. Number of Connected Components in an Undirected Graph</h2><ul>
+<li>N nodes, once union succeeded, N -= 1 </li>
+<li>Union Find</li>
+</ul>
+<h2 id="833-Find-And-Replace-in-String"><a href="#833-Find-And-Replace-in-String" class="headerlink" title="833. Find And Replace in String"></a>833. Find And Replace in String</h2><ul>
+<li>Use “startsWith” to find valid source and record “index : (source, target)” mapping</li>
+<li>HashMap, String</li>
+</ul>
+<h2 id="939-Minimum-Area-Rectangle"><a href="#939-Minimum-Area-Rectangle" class="headerlink" title="939. Minimum Area Rectangle"></a>939. Minimum Area Rectangle</h2><ul>
+<li>Two points on the diagnal can form a rectangle, just check whether other two points are also in the set</li>
+<li>HashSet, Geometry</li>
+</ul>
+<h2 id="777-Swap-Adjacent-in-LR-String"><a href="#777-Swap-Adjacent-in-LR-String" class="headerlink" title="777. Swap Adjacent in LR String"></a>777. Swap Adjacent in LR String</h2><ul>
+<li>X is space, ‘L’ can only go to the left space and ‘R’ can only go to the right space; check ‘L’ and ‘R’ indexes in start String and end String</li>
+<li>String, Index</li>
+</ul>
+<h2 id="299-Bulls-and-Cows"><a href="#299-Bulls-and-Cows" class="headerlink" title="299. Bulls and Cows"></a>299. Bulls and Cows</h2><ul>
+<li>Count the character frequency of two strings, adding up the overlap (min(secret_freq, guess_freq))</li>
+<li>String, Frequency Array</li>
+</ul>
+<h2 id="900-RLE-Iterator"><a href="#900-RLE-Iterator" class="headerlink" title="900. RLE Iterator"></a>900. RLE Iterator</h2><ul>
+<li>Use a curr pointer. 3 conditions: A[curr] &lt; N/ A[curr] == N / A[curr] &gt; N</li>
+<li>Design, Array</li>
+</ul>
+<h2 id="837-New-21-Game"><a href="#837-New-21-Game" class="headerlink" title="837. New 21 Game"></a>837. New 21 Game</h2><ul>
+<li>Similar to stair climbing but much more complex. Points i can be obtained by points i-1, i-2, …, i-w as the previous points, all conditions have the same probability to happen.</li>
+<li>Sum up the probability of points K to points N</li>
+<li>Dynamic Programming, Math, Presum</li>
+</ul>
+<h2 id="911-Online-Election"><a href="#911-Online-Election" class="headerlink" title="911. Online Election"></a>911. Online Election</h2><ul>
+<li>Count person frequency in an array, record “time : leading person” in TreeMap for search its floorKey </li>
+<li>TreeMap, Frequency Array</li>
+</ul>
+<h2 id="524-Longest-Word-in-Dictionary-through-Deleting"><a href="#524-Longest-Word-in-Dictionary-through-Deleting" class="headerlink" title="524. Longest Word in Dictionary through Deleting"></a>524. Longest Word in Dictionary through Deleting</h2><ul>
+<li>Just iterate to check whether all s2’s character is in s1 and in the same order</li>
+<li>String, two pointers</li>
+</ul>
+<h2 id="528-Random-Pick-with-Weight"><a href="#528-Random-Pick-with-Weight" class="headerlink" title="528. Random Pick with Weight"></a>528. Random Pick with Weight</h2><ul>
+<li>Calculate the presum of element’s last position, use binary search to find element (We can also do with treemap but a little slower as put is log(N))</li>
+<li>Presum, Binary Search, Random</li>
+</ul>
+<h2 id="398-Random-Pick-Index"><a href="#398-Random-Pick-Index" class="headerlink" title="398. Random Pick Index"></a>398. Random Pick Index</h2><ul>
+<li>Just map “int : index_list”; Reservoir Sampling is another way(every time meet the target, count++ and put count into the random, when random==0, give result value)</li>
+<li>HashMap, Random</li>
+</ul>
+<h2 id="394-Decode-String"><a href="#394-Decode-String" class="headerlink" title="394. Decode String"></a>394. Decode String</h2><ul>
+<li>When meet ‘[‘, stack the current result and everything start from scratch</li>
+<li>Stack</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Graph/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayueb">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notes++">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/02/Graph/" class="post-title-link" itemprop="url">Graph</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-02 00:46:51 / Modified: 10:54:05" itemprop="dateCreated datePublished" datetime="2019-03-02T00:46:51-05:00">2019-03-02</time>
             
 
             
@@ -438,7 +824,10 @@
 <li>each node only has &lt;= 3 neighbors AND there is no cycle in the graph</li>
 </ul>
 <blockquote>
-<p>Leetcode 261. Graph Valid Tree<br>Leetcode 684. Redundant Connection<br>Leetcode 685. Redundant Connection II</p>
+<p>Leetcode 261. Graph Valid Tree<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public boolean validTree(int n, int[][] edges) &#123;</span><br><span class="line">    if (edges.length != n - 1) return false;</span><br><span class="line">    UF set = new UF(n);</span><br><span class="line">    for (int[] edge : edges) &#123;</span><br><span class="line">        if (!set.union(edge[0], edge[1])) return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Leetcode 684. Redundant Connection<br>Leetcode 685. Redundant Connection II</p>
 </blockquote>
 
           
@@ -1450,7 +1839,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
