@@ -96,20 +96,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Notes++">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="Characterization of Communication Channels Nyquist sampling theorem Shannon-Hartley theorem  Encoding NRZ NRZI Manchester Encoding 4B/5B  Optical Fiber Advantages Amplifier v.s. Regenerator  Error Det">
+<meta name="keywords" content="computer networks,cmu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computer Network Physical Layer">
+<meta property="og:url" content="http://yoursite.com/2019/03/04/Computer-Network-Physical-Layer/index.html">
 <meta property="og:site_name" content="Notes++">
+<meta property="og:description" content="Characterization of Communication Channels Nyquist sampling theorem Shannon-Hartley theorem  Encoding NRZ NRZI Manchester Encoding 4B/5B  Optical Fiber Advantages Amplifier v.s. Regenerator  Error Det">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-05T17:27:11.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Notes++">
+<meta name="twitter:title" content="Computer Network Physical Layer">
+<meta name="twitter:description" content="Characterization of Communication Channels Nyquist sampling theorem Shannon-Hartley theorem  Encoding NRZ NRZI Manchester Encoding 4B/5B  Optical Fiber Advantages Amplifier v.s. Regenerator  Error Det">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/2/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/04/Computer-Network-Physical-Layer/">
 
 
 
@@ -119,7 +124,7 @@
   };
 </script>
 
-  <title>Notes++</title>
+  <title>Computer Network Physical Layer | Notes++</title>
   
 
 
@@ -167,8 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -302,9 +306,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -319,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/union-find/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/Computer-Network-Physical-Layer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayueb">
@@ -336,10 +340,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/02/28/union-find/" class="post-title-link" itemprop="url">Union Find</a>
+          <h1 class="post-title" itemprop="name headline">Computer Network Physical Layer
+
               
             
           </h1>
@@ -364,7 +366,7 @@
                 
               
 
-              <time title="Created: 2019-02-28 10:59:11" itemprop="dateCreated datePublished" datetime="2019-02-28T10:59:11-05:00">2019-02-28</time>
+              <time title="Created: 2019-03-04 15:06:42" itemprop="dateCreated datePublished" datetime="2019-03-04T15:06:42-05:00">2019-03-04</time>
             
 
             
@@ -381,7 +383,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-02 09:29:44" itemprop="dateModified" datetime="2019-03-02T09:29:44-05:00">2019-03-02</time>
+                <time title="Modified: 2019-03-05 12:27:11" itemprop="dateModified" datetime="2019-03-05T12:27:11-05:00">2019-03-05</time>
               
             
           </span>
@@ -398,7 +400,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-System/" itemprop="url" rel="index"><span itemprop="name">Computer System</span></a></span>
 
                 
                 
@@ -433,19 +435,26 @@
       
 
       
-        
-          
-            <p>UF class interface<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class UF</span><br><span class="line">    UF(int N)</span><br><span class="line">    int find(int i)</span><br><span class="line">    void union(int i, int j)</span><br></pre></td></tr></table></figure></p>
-<p>M union find operation on N objects:</p>
-<ul>
-<li>quick find: O(MN) (worst case)</li>
-<li>quick union: O(MN) (worst case)</li>
-<li>path-compressed weighted quick union: O(N + MlgN) ~ linear time<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class WeightedUF &#123;</span><br><span class="line">    int[] id;</span><br><span class="line">    int[] size;</span><br><span class="line">    public WeightedUF(int n) &#123;</span><br><span class="line">        id = new int[n];</span><br><span class="line">        size = new int[n];</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            id[i] = i;</span><br><span class="line">            size[i] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    public int find(int i) &#123;</span><br><span class="line">        if (id[i] != i) &#123;</span><br><span class="line">            id[i] = find(id[i]); // path compression</span><br><span class="line">        &#125;</span><br><span class="line">        return id[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void union(int i, int j) &#123;</span><br><span class="line">        i = find(i);</span><br><span class="line">        j = find(j);</span><br><span class="line">        if (i == j) return;</span><br><span class="line">        if (size[i] &lt; size[j]) &#123; // small tree is put under the big tree</span><br><span class="line">            id[i] = j;</span><br><span class="line">            size[j] += size[i];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            id[j] = i;</span><br><span class="line">            size[i] += size[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+        <h2 id="Characterization-of-Communication-Channels"><a href="#Characterization-of-Communication-Channels" class="headerlink" title="Characterization of Communication Channels"></a>Characterization of Communication Channels</h2><ul>
+<li>Nyquist sampling theorem</li>
+<li>Shannon-Hartley theorem</li>
+</ul>
+<h2 id="Encoding"><a href="#Encoding" class="headerlink" title="Encoding"></a>Encoding</h2><ul>
+<li>NRZ</li>
+<li>NRZI</li>
+<li>Manchester Encoding</li>
+<li>4B/5B</li>
+</ul>
+<h2 id="Optical-Fiber"><a href="#Optical-Fiber" class="headerlink" title="Optical Fiber"></a>Optical Fiber</h2><ul>
+<li>Advantages</li>
+<li>Amplifier v.s. Regenerator</li>
+</ul>
+<h2 id="Error-Detection-and-Correction"><a href="#Error-Detection-and-Correction" class="headerlink" title="Error Detection and Correction"></a>Error Detection and Correction</h2><ul>
+<li>two-dimensional parity</li>
+<li>checksums</li>
+<li>CRC</li>
 </ul>
 
-          
-        
       
     </div>
 
@@ -466,176 +475,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayueb">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notes++">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/02/27/hello-world/" class="post-title-link" itemprop="url">Hexo Quick Start</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-02-27 08:24:36" itemprop="dateCreated datePublished" datetime="2019-02-27T08:24:36-05:00">2019-02-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-02 01:18:21" itemprop="dateModified" datetime="2019-03-02T01:18:21-05:00">2019-03-02</time>
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/computer-networks/" rel="tag"># computer networks</a>
           
-            
-            
+            <a href="/tags/cmu/" rel="tag"># cmu</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/04/Leetcode-today-4/" rel="next" title="Leetcode today 4">
+                <i class="fa fa-chevron-left"></i> Leetcode today 4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -645,18 +516,15 @@
   </article>
 
 
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -676,8 +544,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -779,6 +656,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Characterization-of-Communication-Channels"><span class="nav-number">1.</span> <span class="nav-text">Characterization of Communication Channels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoding"><span class="nav-number">2.</span> <span class="nav-text">Encoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optical-Fiber"><span class="nav-number">3.</span> <span class="nav-text">Optical Fiber</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-Detection-and-Correction"><span class="nav-number">4.</span> <span class="nav-text">Error Detection and Correction</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -909,6 +803,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -919,6 +817,8 @@
   
   
 
+
+  
 
 
   

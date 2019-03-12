@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Notes++">
 <meta property="og:description" content="Main concepts The Internet allows for different physical mediums. Light/Air  Radio Copper Fiberoptics   Every network has different bandwidth and latency. nodes + links bandwidth(capacity): width of t">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-04T00:14:24.709Z">
+<meta property="og:updated_time" content="2019-03-05T17:22:04.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Computer Network Basics">
 <meta name="twitter:description" content="Main concepts The Internet allows for different physical mediums. Light/Air  Radio Copper Fiberoptics   Every network has different bandwidth and latency. nodes + links bandwidth(capacity): width of t">
@@ -366,12 +366,24 @@
                 
               
 
-              <time title="Created: 2019-03-03 12:26:55 / Modified: 19:14:24" itemprop="dateCreated datePublished" datetime="2019-03-03T12:26:55-05:00">2019-03-03</time>
+              <time title="Created: 2019-03-03 12:26:55" itemprop="dateCreated datePublished" datetime="2019-03-03T12:26:55-05:00">2019-03-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-05 12:22:04" itemprop="dateModified" datetime="2019-03-05T12:22:04-05:00">2019-03-05</time>
               
             
           </span>
@@ -456,15 +468,22 @@
 </li>
 <li><strong>Circuit switching</strong><ul>
 <li>used in telephone network</li>
-<li>communication phases<pre><code>1) circuit establish (connection, link by link)
+<li>3 phases<pre><code>1) circuit establish (connection, link by link)
     A -&gt; switch1 -&gt; switch2 -&gt; B
-2) data transfer (A sends data, node will know the path)
-3) circuit disconnect (A sends &quot;teardown circuit&quot; message)
+2) data transfer (source sends data, node will know the path)
+    - No need to include the destination address with the data since the switches know the path
+3) circuit disconnect (source sends &quot;teardown circuit&quot; message)
 </code></pre></li>
-<li>Properties<ul>
-<li>Inefficiency: wastes bandwidth </li>
-<li>Delay: long initial delay &amp;&amp; low data delay</li>
-<li>Recovery from failure is slow</li>
+<li>Pros<ul>
+<li>fast and simple data transfer once the circuit is established</li>
+<li>predictable performance, e.g. guaranteed bandwidth</li>
+</ul>
+</li>
+<li>Cons<ul>
+<li>bursty traffic? circuits will be idle for a long time </li>
+<li>waste bandwidth </li>
+<li>long initial delay</li>
+<li>recovery from failure is slow</li>
 </ul>
 </li>
 </ul>
@@ -476,10 +495,34 @@
 <li>payload: carried data</li>
 </ul>
 </li>
+<li>Properties<ul>
 <li>each packet travels independent</li>
 <li>no link resources are reserved in advance</li>
 </ul>
 </li>
+<li>Statistical Multiplexing<ul>
+<li>Physical links are shared over time</li>
+<li>Can send from any input that is ready</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Network-Layers"><a href="#Network-Layers" class="headerlink" title="Network Layers"></a>Network Layers</h2><ol>
+<li>Physical</li>
+<li>Data link</li>
+<li>Network</li>
+<li>Transport</li>
+<li>Session (Application)</li>
+<li>Presentation (Application)</li>
+<li>Application</li>
+</ol>
+<ul>
+<li><strong>Transport -&gt; Socket -&gt; Library -&gt; Application</strong></li>
+<li><strong>Different layers are not built by the same vendor</strong></li>
+<li><strong>Yet they can communicate with each other because they use the same protocol</strong></li>
+<li><strong>Each Layer has multiple implementations</strong> </li>
+<li><strong>Sender set header, receiver read header to know the next layer</strong></li>
 </ul>
 
       
@@ -529,8 +572,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/03/Computer-Network-Data-Link/" rel="prev" title="Computer Network Data Link">
-                Computer Network Data Link <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/04/Leetcode-today-4/" rel="prev" title="Leetcode today 4">
+                Leetcode today 4 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -600,7 +643,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -698,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-concepts"><span class="nav-number">1.</span> <span class="nav-text">Main concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Circuit-switching-v-s-Packet-switching"><span class="nav-number">2.</span> <span class="nav-text">Circuit switching v.s. Packet switching</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-concepts"><span class="nav-number">1.</span> <span class="nav-text">Main concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Circuit-switching-v-s-Packet-switching"><span class="nav-number">2.</span> <span class="nav-text">Circuit switching v.s. Packet switching</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-Layers"><span class="nav-number">3.</span> <span class="nav-text">Network Layers</span></a></li></ol></div>
             
 
           </div>
