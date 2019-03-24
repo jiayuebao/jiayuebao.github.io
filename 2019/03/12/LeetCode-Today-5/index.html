@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="Basics BST worst: O(n)  Find the first element &amp;gt;= target12345678910111213public int binarySearch(int[] arr, int target) &amp;#123;    int low = 0;    int high = arr.length - 1;    while (low &amp;lt; high)">
-<meta name="keywords" content="algorithms,leetcode">
+  <meta name="description" content="238. Product of Array Except Self The product of all numbers before the target multiplied by the the product of all numbers after the element; can reach O(1) space complexity Array  273. Integer to En">
+<meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Binary Search">
-<meta property="og:url" content="http://yoursite.com/2019/03/02/Binary-Search/index.html">
+<meta property="og:title" content="LeetCode today 5">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/LeetCode-Today-5/index.html">
 <meta property="og:site_name" content="Notes++">
-<meta property="og:description" content="Basics BST worst: O(n)  Find the first element &amp;gt;= target12345678910111213public int binarySearch(int[] arr, int target) &amp;#123;    int low = 0;    int high = arr.length - 1;    while (low &amp;lt; high)">
+<meta property="og:description" content="238. Product of Array Except Self The product of all numbers before the target multiplied by the the product of all numbers after the element; can reach O(1) space complexity Array  273. Integer to En">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-14T15:32:34.677Z">
+<meta property="og:updated_time" content="2019-03-13T02:45:44.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Binary Search">
-<meta name="twitter:description" content="Basics BST worst: O(n)  Find the first element &amp;gt;= target12345678910111213public int binarySearch(int[] arr, int target) &amp;#123;    int low = 0;    int high = arr.length - 1;    while (low &amp;lt; high)">
+<meta name="twitter:title" content="LeetCode today 5">
+<meta name="twitter:description" content="238. Product of Array Except Self The product of all numbers before the target multiplied by the the product of all numbers after the element; can reach O(1) space complexity Array  273. Integer to En">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/02/Binary-Search/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/12/LeetCode-Today-5/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Binary Search | Notes++</title>
+  <title>LeetCode today 5 | Notes++</title>
   
 
 
@@ -323,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Binary-Search/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/LeetCode-Today-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayueb">
@@ -340,7 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Binary Search
+          <h1 class="post-title" itemprop="name headline">LeetCode today 5
 
               
             
@@ -366,24 +366,12 @@
                 
               
 
-              <time title="Created: 2019-03-02 20:21:32" itemprop="dateCreated datePublished" datetime="2019-03-02T20:21:32-05:00">2019-03-02</time>
+              <time title="Created: 2019-03-12 17:24:06 / Modified: 22:45:44" itemprop="dateCreated datePublished" datetime="2019-03-12T17:24:06-04:00">2019-03-12</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-14 11:32:34" itemprop="dateModified" datetime="2019-03-14T11:32:34-04:00">2019-03-14</time>
               
             
           </span>
@@ -400,7 +388,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
 
                 
                 
@@ -435,10 +423,14 @@
       
 
       
-        <h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ul>
-<li>BST worst: O(n)</li>
+        <h2 id="238-Product-of-Array-Except-Self"><a href="#238-Product-of-Array-Except-Self" class="headerlink" title="238. Product of Array Except Self"></a>238. Product of Array Except Self</h2><ul>
+<li>The product of all numbers before the target multiplied by the the product of all numbers after the element; can reach O(1) space complexity</li>
+<li>Array</li>
 </ul>
-<h2 id="Find-the-first-element-gt-target"><a href="#Find-the-first-element-gt-target" class="headerlink" title="Find the first element &gt;= target"></a>Find the first element &gt;= target</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int binarySearch(int[] arr, int target) &#123;</span><br><span class="line">    int low = 0;</span><br><span class="line">    int high = arr.length - 1;</span><br><span class="line">    while (low &lt; high) &#123; // no equal here</span><br><span class="line">        int mid = (low + high) / 2;</span><br><span class="line">        if (arr[mid] &lt; target) &#123; // mid is not possible to be the answer</span><br><span class="line">            low = mid + 1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            high = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="273-Integer-to-English-Words"><a href="#273-Integer-to-English-Words" class="headerlink" title="273. Integer to English Words"></a>273. Integer to English Words</h2><ul>
+<li>Each number can be grouped by 3-digits, 3-digits, …; each 3-digit is [thousand, million, billion], 3-digit is hundred, tens, less than twenty.</li>
+<li>String</li>
+</ul>
 
       
     </div>
@@ -462,8 +454,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/algorithms/" rel="tag"># algorithms</a>
-          
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
         </div>
@@ -477,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/02/Leetcode-today-3/" rel="next" title="Leetcode today 3">
-                <i class="fa fa-chevron-left"></i> Leetcode today 3
+              <a href="/2019/03/04/Computer-Network-Physical-Layer/" rel="next" title="Computer Network Physical Layer">
+                <i class="fa fa-chevron-left"></i> Computer Network Physical Layer
               </a>
             
           </div>
@@ -487,8 +477,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/03/How-Internet-works/" rel="prev" title="How Internet works">
-                How Internet works <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/13/Sorting/" rel="prev" title="Sorting">
+                Sorting <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -658,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basics"><span class="nav-number">1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-the-first-element-gt-target"><span class="nav-number">2.</span> <span class="nav-text">Find the first element &gt;= target</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#238-Product-of-Array-Except-Self"><span class="nav-number">1.</span> <span class="nav-text">238. Product of Array Except Self</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#273-Integer-to-English-Words"><span class="nav-number">2.</span> <span class="nav-text">273. Integer to English Words</span></a></li></ol></div>
             
 
           </div>

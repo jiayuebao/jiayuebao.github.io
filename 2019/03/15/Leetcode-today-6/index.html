@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="Basics BST worst: O(n)  Find the first element &amp;gt;= target12345678910111213public int binarySearch(int[] arr, int target) &amp;#123;    int low = 0;    int high = arr.length - 1;    while (low &amp;lt; high)">
-<meta name="keywords" content="algorithms,leetcode">
+  <meta name="description" content="206. Reverse Linked List Reverse the pointer to point the previous element, both in iteration and recursion Linkedlist  21. Merge Two Sorted Lists Just like merge sort, both in iteration and recursion">
+<meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Binary Search">
-<meta property="og:url" content="http://yoursite.com/2019/03/02/Binary-Search/index.html">
+<meta property="og:title" content="LeetCode today 6">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/Leetcode-today-6/index.html">
 <meta property="og:site_name" content="Notes++">
-<meta property="og:description" content="Basics BST worst: O(n)  Find the first element &amp;gt;= target12345678910111213public int binarySearch(int[] arr, int target) &amp;#123;    int low = 0;    int high = arr.length - 1;    while (low &amp;lt; high)">
+<meta property="og:description" content="206. Reverse Linked List Reverse the pointer to point the previous element, both in iteration and recursion Linkedlist  21. Merge Two Sorted Lists Just like merge sort, both in iteration and recursion">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-14T15:32:34.677Z">
+<meta property="og:updated_time" content="2019-03-15T19:38:14.806Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Binary Search">
-<meta name="twitter:description" content="Basics BST worst: O(n)  Find the first element &amp;gt;= target12345678910111213public int binarySearch(int[] arr, int target) &amp;#123;    int low = 0;    int high = arr.length - 1;    while (low &amp;lt; high)">
+<meta name="twitter:title" content="LeetCode today 6">
+<meta name="twitter:description" content="206. Reverse Linked List Reverse the pointer to point the previous element, both in iteration and recursion Linkedlist  21. Merge Two Sorted Lists Just like merge sort, both in iteration and recursion">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/02/Binary-Search/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/Leetcode-today-6/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Binary Search | Notes++</title>
+  <title>LeetCode today 6 | Notes++</title>
   
 
 
@@ -323,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Binary-Search/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/Leetcode-today-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayueb">
@@ -340,7 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Binary Search
+          <h1 class="post-title" itemprop="name headline">LeetCode today 6
 
               
             
@@ -366,24 +366,12 @@
                 
               
 
-              <time title="Created: 2019-03-02 20:21:32" itemprop="dateCreated datePublished" datetime="2019-03-02T20:21:32-05:00">2019-03-02</time>
+              <time title="Created: 2019-03-15 15:12:56 / Modified: 15:38:14" itemprop="dateCreated datePublished" datetime="2019-03-15T15:12:56-04:00">2019-03-15</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-14 11:32:34" itemprop="dateModified" datetime="2019-03-14T11:32:34-04:00">2019-03-14</time>
               
             
           </span>
@@ -400,7 +388,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
 
                 
                 
@@ -435,10 +423,49 @@
       
 
       
-        <h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ul>
-<li>BST worst: O(n)</li>
+        <h2 id="206-Reverse-Linked-List"><a href="#206-Reverse-Linked-List" class="headerlink" title="206. Reverse Linked List"></a>206. Reverse Linked List</h2><ul>
+<li>Reverse the pointer to point the previous element, both in iteration and recursion</li>
+<li>Linkedlist</li>
 </ul>
-<h2 id="Find-the-first-element-gt-target"><a href="#Find-the-first-element-gt-target" class="headerlink" title="Find the first element &gt;= target"></a>Find the first element &gt;= target</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int binarySearch(int[] arr, int target) &#123;</span><br><span class="line">    int low = 0;</span><br><span class="line">    int high = arr.length - 1;</span><br><span class="line">    while (low &lt; high) &#123; // no equal here</span><br><span class="line">        int mid = (low + high) / 2;</span><br><span class="line">        if (arr[mid] &lt; target) &#123; // mid is not possible to be the answer</span><br><span class="line">            low = mid + 1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            high = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="21-Merge-Two-Sorted-Lists"><a href="#21-Merge-Two-Sorted-Lists" class="headerlink" title="21. Merge Two Sorted Lists"></a>21. Merge Two Sorted Lists</h2><ul>
+<li>Just like merge sort, both in iteration and recursion</li>
+<li>Merge sort, Linkedlist</li>
+</ul>
+<h2 id="23-Merge-k-Sorted-Lists"><a href="#23-Merge-k-Sorted-Lists" class="headerlink" title="23. Merge k Sorted Lists"></a>23. Merge k Sorted Lists</h2><ul>
+<li>Use priority queue</li>
+</ul>
+<h2 id="88-Merge-Sorted-Array"><a href="#88-Merge-Sorted-Array" class="headerlink" title="88. Merge Sorted Array"></a>88. Merge Sorted Array</h2><ul>
+<li>Merge from the end and just like merge sort</li>
+<li>Array, Merge sort</li>
+</ul>
+<h2 id="127-Word-Ladder"><a href="#127-Word-Ladder" class="headerlink" title="127. Word Ladder"></a>127. Word Ladder</h2><ul>
+<li>The BFS queue stores all the possible strings; remember to delete from the set or use visited array to mark the visited strings</li>
+<li>BFS</li>
+</ul>
+<h2 id="139-Word-Break"><a href="#139-Word-Break" class="headerlink" title="139. Word Break"></a>139. Word Break</h2><ul>
+<li>Only when the substring(j, i) is in wordDict and dp[j] = true, set dp[i] = true</li>
+<li>dp</li>
+</ul>
+<h2 id="204-Count-Primes"><a href="#204-Count-Primes" class="headerlink" title="204. Count Primes"></a>204. Count Primes</h2><ul>
+<li>Mark all the possible product i * j  as true</li>
+<li>Math, DP</li>
+</ul>
+<h2 id="232-Implement-Queue-using-Stacks"><a href="#232-Implement-Queue-using-Stacks" class="headerlink" title="232. Implement Queue using Stacks"></a>232. Implement Queue using Stacks</h2><ul>
+<li>Pop twice to make sure the sequence is the same</li>
+<li>stack, queue</li>
+</ul>
+<h2 id="346-Moving-Average-from-Data-Stream"><a href="#346-Moving-Average-from-Data-Stream" class="headerlink" title="346. Moving Average from Data Stream"></a>346. Moving Average from Data Stream</h2><ul>
+<li>Use queue to store the number, use a variable to track the sum</li>
+<li>Queue</li>
+</ul>
+<h2 id="496-Next-Greater-Element-I"><a href="#496-Next-Greater-Element-I" class="headerlink" title="496. Next Greater Element I"></a>496. Next Greater Element I</h2><ul>
+<li>Use a stack to record the element in descending order</li>
+<li>Stack</li>
+</ul>
+<h2 id="503-Next-Greater-Element-II"><a href="#503-Next-Greater-Element-II" class="headerlink" title="503. Next Greater Element II"></a>503. Next Greater Element II</h2><ul>
+<li>Tranverse the array twice, but the second time not push in the stack</li>
+<li>Stack</li>
+</ul>
 
       
     </div>
@@ -462,8 +489,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/algorithms/" rel="tag"># algorithms</a>
-          
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
         </div>
@@ -477,8 +502,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/02/Leetcode-today-3/" rel="next" title="Leetcode today 3">
-                <i class="fa fa-chevron-left"></i> Leetcode today 3
+              <a href="/2019/03/13/Sorting/" rel="next" title="Sorting">
+                <i class="fa fa-chevron-left"></i> Sorting
               </a>
             
           </div>
@@ -486,10 +511,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/03/How-Internet-works/" rel="prev" title="How Internet works">
-                How Internet works <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -658,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basics"><span class="nav-number">1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-the-first-element-gt-target"><span class="nav-number">2.</span> <span class="nav-text">Find the first element &gt;= target</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#206-Reverse-Linked-List"><span class="nav-number">1.</span> <span class="nav-text">206. Reverse Linked List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-Merge-Two-Sorted-Lists"><span class="nav-number">2.</span> <span class="nav-text">21. Merge Two Sorted Lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-Merge-k-Sorted-Lists"><span class="nav-number">3.</span> <span class="nav-text">23. Merge k Sorted Lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#88-Merge-Sorted-Array"><span class="nav-number">4.</span> <span class="nav-text">88. Merge Sorted Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#127-Word-Ladder"><span class="nav-number">5.</span> <span class="nav-text">127. Word Ladder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#139-Word-Break"><span class="nav-number">6.</span> <span class="nav-text">139. Word Break</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#204-Count-Primes"><span class="nav-number">7.</span> <span class="nav-text">204. Count Primes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#232-Implement-Queue-using-Stacks"><span class="nav-number">8.</span> <span class="nav-text">232. Implement Queue using Stacks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#346-Moving-Average-from-Data-Stream"><span class="nav-number">9.</span> <span class="nav-text">346. Moving Average from Data Stream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#496-Next-Greater-Element-I"><span class="nav-number">10.</span> <span class="nav-text">496. Next Greater Element I</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#503-Next-Greater-Element-II"><span class="nav-number">11.</span> <span class="nav-text">503. Next Greater Element II</span></a></li></ol></div>
             
 
           </div>
