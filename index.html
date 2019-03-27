@@ -16,7 +16,7 @@
 
 <html class="theme-next pisces use-motion" lang>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
@@ -156,7 +156,7 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
@@ -167,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -303,6 +303,386 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/ML-learning-notes-Naive-Bayes-Model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayueb">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notes++">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/25/ML-learning-notes-Naive-Bayes-Model/" class="post-title-link" itemprop="url">ML learning notes: Naive Bayes Model</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-25 10:44:44" itemprop="dateCreated datePublished" datetime="2019-03-25T10:44:44-04:00">2019-03-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-27 10:35:08" itemprop="dateModified" datetime="2019-03-27T10:35:08-04:00">2019-03-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Naive Bayes Model也是一个很常见的ML模型了，对应于Big picture，属于decision function；它也是目前学习到的第一种Bayesian Network。和Logistic Regression一样，属于probabilistic learning。</p>
+<p>Naive Bayes Model和之前学习过的Linear Regression, Logistic Regression, Neural Network等模型最大的不同是，它可以直接得出closed-form解，而不用通过SGD一次次地更新参数。之所以可以实现闭环解源于它的核心assumption：“conditional independence assumption”，即在给定y的情况下，每个x/feature的发生都是独立的。</p>
+<h2 id="通用NB模型"><a href="#通用NB模型" class="headerlink" title="通用NB模型"></a>通用NB模型</h2><p>NB模型有许多，包括：</p>
+<ol>
+<li>Bernoulli NB</li>
+<li>Gaussian NB</li>
+<li>Multinomial NB</li>
+<li>Multi-class NB<br>然而这些模型唯一变化只有<strong>event model</strong>，即x和y的分布, 求解过程都是一致的：<br>核心思想和logistic regression等模型还是一样：<br>$$\hat{y} = argmax(P(y | x))$$<br>而由于Bayes rule，我们将计算$P(y|x)$转化为计算$P(x,y)$<br>$$argmaxP(y|x) = argmaxP(x, y)/P(x) = argmaxP(x, y) = argmaxP(x|y)P(y)$$</li>
+</ol>
+<p>a) 计算loglikelihood<br>$$L(\phi, \theta)= log\prod_{i=1}^{N}P(x^{(i)}, y^{(i)}|\phi, \theta) = \sum_{i=1}^{N}logP(x^{(i)}, y^{(i)}|\phi, \theta) $$<br>$$= \sum_{i=1}^{N}logP(y^{(i)}|\phi) +  \sum_{m=1}^{M}logP(x_{m}^{(i)}|y^{(i)}, \theta)$$<br>其中，$\phi$控制$y$, $\theta$控制$x$.<br>b) 分别计算对$\phi$和对$\theta$的derivative（close-form）<br>c) derivative = 0 即j解出$\phi$和$\theta$</p>
+<h2 id="MAP-vs-MLE"><a href="#MAP-vs-MLE" class="headerlink" title="MAP vs MLE"></a>MAP vs MLE</h2><p>NB模型的objective function可以是MAP也可以是MLE。但MLE有一个弊端，那就是当P(x|y) = 0的时候，P(y|x)也将变为0。这个弊端是由于我们仅从当前的数据得出结论，解决方法是使用MAP。MAP是在MLE的前提下又加入了$P(\phi, \theta | \alpha, \beta)$，由于\phi和\theta决定了$y$和$x$的分布，因此它们的先验概率分布即。可以看作引入了pseudo data，增加了样本数，得出的结论更加贴近真实的（数据量比较大）情况。</p>
+<h2 id="生成模型-generative-model-vs-判别模型-discriminitive-model"><a href="#生成模型-generative-model-vs-判别模型-discriminitive-model" class="headerlink" title="生成模型(generative model) vs 判别模型 (discriminitive model)"></a>生成模型(generative model) vs 判别模型 (discriminitive model)</h2><p>Naive Bayes模型是学习的第一个生成模型，之前所学的logistic regression等都是判别模型。<br>生成模型需要对数据的分布进行assumption，需要先生成联合概率分布P(x, y)，然后再根据Bayes rule计算出P(y|x); 而判别模型则并不对x和y的分布作任何假设，直接通过现有的数据推出P(y|x)。</p>
+<h2 id="更新知识树"><a href="#更新知识树" class="headerlink" title="更新知识树"></a>更新知识树</h2><p>学习了Naive Bayes Model之后，decision function的知识树可以更新为：</p>
+<ol>
+<li>perceptron</li>
+<li>linear regression</li>
+<li>logistic regression(dicrimitive model)</li>
+<li><strong>naive bayes model(generative model)</strong></li>
+<li>NN for classification</li>
+<li>NN for regression</li>
+</ol>
+<p>Objective function增加了MAP方法。</p>
+<p>Optimization function中的closed form形式还适用于Naive Bayes。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/ML-learning-notes-the-Big-Picure-of-Machine-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayueb">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notes++">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/24/ML-learning-notes-the-Big-Picure-of-Machine-Learning/" class="post-title-link" itemprop="url">ML learning notes: the Big Picture</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-24 14:43:54" itemprop="dateCreated datePublished" datetime="2019-03-24T14:43:54-04:00">2019-03-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-27 10:35:17" itemprop="dateModified" datetime="2019-03-27T10:35:17-04:00">2019-03-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>学习Machine Learning也有一段时间了（Matt真的是一位非常可爱的老师），今天就梳理一遍ML到底是在做什么。希望通过梳理，可以对ML有更好的理解。</p>
+<h3 id="ML问题无外乎以下3个步骤："><a href="#ML问题无外乎以下3个步骤：" class="headerlink" title="ML问题无外乎以下3个步骤："></a>ML问题无外乎以下3个步骤：</h3><blockquote>
+<ol>
+<li>给定一个训练集 $D$ </li>
+<li>选择 decision function 和 loss function<br>$$\hat{y} = h_{\theta}(x)$$<br>$$J(y, \hat{y}) = J_{\theta}(y, h_{\theta}(x))$$</li>
+<li>选择optimization method更新 $\theta$</li>
+</ol>
+</blockquote>
+<p>不同的ML算法其实就是不同的decision function, loss function和optimization method的各种结合。 </p>
+<h3 id="A-目前已经学到的decision-function包括："><a href="#A-目前已经学到的decision-function包括：" class="headerlink" title="A. 目前已经学到的decision function包括："></a>A. 目前已经学到的decision function包括：</h3><p><strong>1. decision tree</strong>: 分类器<br><strong>2. KNN</strong>：分类器<br><strong>3. perceptron</strong>: 线性分类器, 一个线性的超平面将数据分为两类$y\in${-1, 1}<br>$$\hat{y} = sign(w_{1}x_{1}+…+w_{m}x_{m} + b) = sign(\theta^{T}x)$$<br><strong>4. linear regression</strong>:（与MSE，closed-form/SD/SGD结合）回归器<br>$$\hat{y} = \theta^{T}x$$<br><strong>5. logistic regression</strong>: (与MLE，SD/SGD结合）概率模型分类器，y不再是一个deterministic value, 而是一个概率分布，最终分类结果选择概率最大的那一个。<br>1) binary: 使用sigmoid（softmax的特例）<br>$$P(y=1|x) = sigmoid(\theta^{T}x) = \frac{1}{1+exp(-\theta^{T}x)}$$<br>$$P(y=0|x) = 1 - sigmoid(\theta^{T}x)$$<br>2) multi-class: 使用softmax<br>$$P(y=i|x) = softmax(\theta_{i}^{T}x) = \frac{exp(\theta_{i}^{T}x)}{\sum_{k=1}^{K}exp(\theta_{k}^{T}x)}$$</p>
+<p><strong>6. neural network</strong> : （与cross-entropy, SGD结合）分类器/回归器<br>    1) 作为分类器（1 hidden layer）<br>    $$P(y|x) = \sigma(w_{2}\sigma(w_{1}x+b_{1})+b_{2})$$<br>    其中，$\sigma(x)$可以是sigmoid函数也可以是别的激活函数。<br>    2) 作为回归器 (1 hidden layer)<br>    $$\hat{y} = \sigma(w_{2}\sigma(w_{1}x+b_{1})+b_{2})$$<br>    NN的本质其实就是chain rule，foward从x一路计算到y和J，backward从一路通过chain rule求J对所有参数的导数，最后通过求得的导数进行参数更新。 学了NN之后，发现它并没有想象中难，希望之后有时间可以开一篇专门写NN。</p>
+<h3 id="B-目前已经学到的loss-function包括"><a href="#B-目前已经学到的loss-function包括" class="headerlink" title="B. 目前已经学到的loss function包括:"></a>B. 目前已经学到的loss function包括:</h3><p><strong>1. Minimum Square Error(MSE)</strong>: (与linear regression结合)<br>$$J = \frac{1}{N}\sum_{i=1}^{N}(y^{(i)} -\hat{y}^{(i)})^{2}$$<br><strong>2. Maximum Likelihood Error(MLE)</strong>: (与logistic regression结合)<br>    这里的likelihood指的是log likelihood，并且认为数据是”independently identically distributed”.<br>$$J = -\frac{1}{N}L(\theta) =-\frac{1}{N}log(\prod_{i=1}^{N}P_{\theta}(y^{(i)} | x^{(i)})= -\frac{1}{N}\sum_{i=1}^{N}logP_{\theta}(y^{(i)} | x^{(i)})$$<br><strong>3. Cross-entropy</strong>: (与NN结合)<br>$$J = ylog(\hat(y) + (1 - y)log(1 - \hat{y})$$</p>
+<h3 id="C-目前已经学到的optimization-method包括"><a href="#C-目前已经学到的optimization-method包括" class="headerlink" title="C. 目前已经学到的optimization method包括:"></a>C. 目前已经学到的optimization method包括:</h3><p><strong>1. closed-form</strong>：直接计算出最优的 $\theta$，适用于线性回归<br><strong>2. GD</strong>: 关注所有{$x^{(i)}, y^{(i)}$}<br>$$\theta = \theta - \lambda \nabla_{\theta}J(\theta)$$<br>其中，$\nabla_{\theta}J(\theta) = \frac{1}{N}\sum_{i=1}^{N}\nabla J_{i}(\theta)$<br><strong>3. SGD</strong>：只关注某一对{$x^{(i)}, y^{(i)}$}<br>$$\theta = \theta - \lambda \nabla_{\theta}J_{i}(\theta)$$<br>注： $\nabla_{\theta}J(\theta) = \frac{\partial J(\theta)}{\partial \theta} = [\begin{matrix} \frac{\partial J(\theta)}{\partial \theta_{1}} \ \frac{\partial J(\theta)}{\partial \theta_{2}} \ … \ \frac{\partial J(\theta)}{\partial \theta_{m}}\end{matrix}]^{T}$</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -850,197 +1230,6 @@
 <h2 id="273-Integer-to-English-Words"><a href="#273-Integer-to-English-Words" class="headerlink" title="273. Integer to English Words"></a>273. Integer to English Words</h2><ul>
 <li>Each number can be grouped by 3-digits, 3-digits, …; each 3-digit is [thousand, million, billion], 3-digit is hundred, tens, less than twenty.</li>
 <li>String</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/Computer-Network-Physical-Layer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayueb">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notes++">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/04/Computer-Network-Physical-Layer/" class="post-title-link" itemprop="url">Computer Network Physical Layer</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-04 15:06:42" itemprop="dateCreated datePublished" datetime="2019-03-04T15:06:42-05:00">2019-03-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-05 12:27:11" itemprop="dateModified" datetime="2019-03-05T12:27:11-05:00">2019-03-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-System/" itemprop="url" rel="index"><span itemprop="name">Computer System</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Characterization-of-Communication-Channels"><a href="#Characterization-of-Communication-Channels" class="headerlink" title="Characterization of Communication Channels"></a>Characterization of Communication Channels</h2><ul>
-<li>Nyquist sampling theorem</li>
-<li>Shannon-Hartley theorem</li>
-</ul>
-<h2 id="Encoding"><a href="#Encoding" class="headerlink" title="Encoding"></a>Encoding</h2><ul>
-<li>NRZ</li>
-<li>NRZI</li>
-<li>Manchester Encoding</li>
-<li>4B/5B</li>
-</ul>
-<h2 id="Optical-Fiber"><a href="#Optical-Fiber" class="headerlink" title="Optical Fiber"></a>Optical Fiber</h2><ul>
-<li>Advantages</li>
-<li>Amplifier v.s. Regenerator</li>
-</ul>
-<h2 id="Error-Detection-and-Correction"><a href="#Error-Detection-and-Correction" class="headerlink" title="Error Detection and Correction"></a>Error Detection and Correction</h2><ul>
-<li>two-dimensional parity</li>
-<li>checksums</li>
-<li>CRC</li>
 </ul>
 
           
@@ -2136,186 +2325,6 @@ cost = ratio * wage_sum
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Graph/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayueb">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Notes++">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/02/Graph/" class="post-title-link" itemprop="url">Graph</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-02 00:46:51 / Modified: 10:54:05" itemprop="dateCreated datePublished" datetime="2019-03-02T00:46:51-05:00">2019-03-02</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithms/Interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Whether-there-is-a-cycle-in-an-undirected-graph？"><a href="#Whether-there-is-a-cycle-in-an-undirected-graph？" class="headerlink" title="Whether there is a cycle in an undirected graph？"></a>Whether there is a cycle in an undirected graph？</h3><ul>
-<li>Union find:<br>if two connected node fail to union, there is a cycle</li>
-<li>Search and HashMap:<br>if the <strong> non-parent </strong> neighbor of a node has been visited, there is a cycle</li>
-</ul>
-<h3 id="Whether-an-undirected-graph-can-be-converted-into-a-binary-tree"><a href="#Whether-an-undirected-graph-can-be-converted-into-a-binary-tree" class="headerlink" title="Whether an undirected graph can be converted into a binary tree?"></a>Whether an undirected graph can be converted into a binary tree?</h3><ul>
-<li>each node only has &lt;= 3 neighbors AND there is no cycle in the graph</li>
-</ul>
-<blockquote>
-<p>Leetcode 261. Graph Valid Tree<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public boolean validTree(int n, int[][] edges) &#123;</span><br><span class="line">    if (edges.length != n - 1) return false;</span><br><span class="line">    UF set = new UF(n);</span><br><span class="line">    for (int[] edge : edges) &#123;</span><br><span class="line">        if (!set.union(edge[0], edge[1])) return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>Leetcode 684. Redundant Connection<br>Leetcode 685. Redundant Connection II</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2362,7 +2371,7 @@ cost = ratio * wage_sum
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2387,7 +2396,9 @@ cost = ratio * wage_sum
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2426,7 +2437,9 @@ cost = ratio * wage_sum
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2603,6 +2616,84 @@ cost = ratio * wage_sum
   
 
   
+  
+
+  
+  
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
 
   
 

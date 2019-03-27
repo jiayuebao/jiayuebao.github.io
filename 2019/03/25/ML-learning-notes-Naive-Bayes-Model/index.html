@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="947. Most Stones Removed with Same Row or Column For each stone, union its column and row. Count the number of  connected components. union find  635. Design Log Storage System Use TreeMap to sort the">
-<meta name="keywords" content="leetcode">
+  <meta name="description" content="Naive Bayes Model也是一个很常见的ML模型了，对应于Big picture，属于decision function；它也是目前学习到的第一种Bayesian Network。和Logistic Regression一样，属于probabilistic learning。 Naive Bayes Model和之前学习过的Linear Regression, Logistic Regr">
+<meta name="keywords" content="cmu,machine learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode today 1">
-<meta property="og:url" content="http://yoursite.com/2019/03/01/Leetcode-today-1/index.html">
+<meta property="og:title" content="ML learning notes: Naive Bayes Model">
+<meta property="og:url" content="http://yoursite.com/2019/03/25/ML-learning-notes-Naive-Bayes-Model/index.html">
 <meta property="og:site_name" content="Notes++">
-<meta property="og:description" content="947. Most Stones Removed with Same Row or Column For each stone, union its column and row. Count the number of  connected components. union find  635. Design Log Storage System Use TreeMap to sort the">
+<meta property="og:description" content="Naive Bayes Model也是一个很常见的ML模型了，对应于Big picture，属于decision function；它也是目前学习到的第一种Bayesian Network。和Logistic Regression一样，属于probabilistic learning。 Naive Bayes Model和之前学习过的Linear Regression, Logistic Regr">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-02T06:08:42.006Z">
+<meta property="og:updated_time" content="2019-03-27T14:35:08.354Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode today 1">
-<meta name="twitter:description" content="947. Most Stones Removed with Same Row or Column For each stone, union its column and row. Count the number of  connected components. union find  635. Design Log Storage System Use TreeMap to sort the">
+<meta name="twitter:title" content="ML learning notes: Naive Bayes Model">
+<meta name="twitter:description" content="Naive Bayes Model也是一个很常见的ML模型了，对应于Big picture，属于decision function；它也是目前学习到的第一种Bayesian Network。和Logistic Regression一样，属于probabilistic learning。 Naive Bayes Model和之前学习过的Linear Regression, Logistic Regr">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/01/Leetcode-today-1/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/25/ML-learning-notes-Naive-Bayes-Model/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Leetcode today 1 | Notes++</title>
+  <title>ML learning notes: Naive Bayes Model | Notes++</title>
   
 
 
@@ -323,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/Leetcode-today-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/ML-learning-notes-Naive-Bayes-Model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayueb">
@@ -340,7 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode today 1
+          <h1 class="post-title" itemprop="name headline">ML learning notes: Naive Bayes Model
 
               
             
@@ -366,7 +366,7 @@
                 
               
 
-              <time title="Created: 2019-03-01 00:47:10" itemprop="dateCreated datePublished" datetime="2019-03-01T00:47:10-05:00">2019-03-01</time>
+              <time title="Created: 2019-03-25 10:44:44" itemprop="dateCreated datePublished" datetime="2019-03-25T10:44:44-04:00">2019-03-25</time>
             
 
             
@@ -383,7 +383,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-02 01:08:42" itemprop="dateModified" datetime="2019-03-02T01:08:42-05:00">2019-03-02</time>
+                <time title="Modified: 2019-03-27 10:35:08" itemprop="dateModified" datetime="2019-03-27T10:35:08-04:00">2019-03-27</time>
               
             
           </span>
@@ -400,7 +400,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a></span>
 
                 
                 
@@ -435,45 +435,29 @@
       
 
       
-        <h2 id="947-Most-Stones-Removed-with-Same-Row-or-Column"><a href="#947-Most-Stones-Removed-with-Same-Row-or-Column" class="headerlink" title="947. Most Stones Removed with Same Row or Column"></a>947. Most Stones Removed with Same Row or Column</h2><ul>
-<li>For each stone, union its column and row. Count the number of  connected components.</li>
-<li>union find</li>
-</ul>
-<h2 id="635-Design-Log-Storage-System"><a href="#635-Design-Log-Storage-System" class="headerlink" title="635. Design Log Storage System"></a>635. Design Log Storage System</h2><ul>
-<li>Use TreeMap to sort the date, change the string value according to granularity</li>
-<li>TreeMap, String</li>
-</ul>
-<h2 id="776-Split-BST"><a href="#776-Split-BST" class="headerlink" title="776. Split BST"></a>776. Split BST</h2><ul>
-<li>Check whether tree root is put to the left part or the right part and change the root accordingly.</li>
-<li>Recursion</li>
-</ul>
-<h2 id="529-Minesweeper"><a href="#529-Minesweeper" class="headerlink" title="529. Minesweeper"></a>529. Minesweeper</h2><ul>
-<li>First check for 8 directions and calculate the mines count. If the count is 0, do classic BFS.</li>
-<li>BFS</li>
-</ul>
-<h2 id="503-Next-Greater-Element-II"><a href="#503-Next-Greater-Element-II" class="headerlink" title="503. Next Greater Element II"></a>503. Next Greater Element II</h2><ul>
-<li>Run two cycles. First cycle is the normal cycle; the second cycle never push and will pop if the current number not before it. </li>
-<li>Stack</li>
-</ul>
-<h2 id="694-Number-of-Distinct-Islands"><a href="#694-Number-of-Distinct-Islands" class="headerlink" title="694. Number of Distinct Islands"></a>694. Number of Distinct Islands</h2><ul>
-<li>Use string to represent the shape of island.</li>
-<li>HashMap, DFS</li>
-</ul>
-<h2 id="230-Kth-Smallest-Element-in-a-BST"><a href="#230-Kth-Smallest-Element-in-a-BST" class="headerlink" title="230. Kth Smallest Element in a BST"></a>230. Kth Smallest Element in a BST</h2><ul>
-<li>inorder traversal</li>
-</ul>
-<h2 id="729-My-Calendar-I"><a href="#729-My-Calendar-I" class="headerlink" title="729. My Calendar I"></a>729. My Calendar I</h2><ul>
-<li>Only check the previous start and the next start.</li>
-<li>TreeMap</li>
-</ul>
-<h2 id="730-731-My-Calendar-II-III"><a href="#730-731-My-Calendar-II-III" class="headerlink" title="730-731. My Calendar II III"></a>730-731. My Calendar II III</h2><ul>
-<li>Start makes value + 1, end makes value - 1. Iterating and adding up all the start and end values to see the current active events.</li>
-<li>TreeMap</li>
-</ul>
-<h2 id="304-Range-Sum-Query-2D-Immutable"><a href="#304-Range-Sum-Query-2D-Immutable" class="headerlink" title="304. Range Sum Query 2D - Immutable"></a>304. Range Sum Query 2D - Immutable</h2><ul>
-<li>Calculate the Presum of 2D array first, which is the 2D area starting from origin. Then any interim area can be calculated by <code>Sum(ABCD)=Sum(OD)−Sum(OB)−Sum(OC)+Sum(OA)</code></li>
-<li>Presum</li>
-</ul>
+        <p>Naive Bayes Model也是一个很常见的ML模型了，对应于Big picture，属于decision function；它也是目前学习到的第一种Bayesian Network。和Logistic Regression一样，属于probabilistic learning。</p>
+<p>Naive Bayes Model和之前学习过的Linear Regression, Logistic Regression, Neural Network等模型最大的不同是，它可以直接得出closed-form解，而不用通过SGD一次次地更新参数。之所以可以实现闭环解源于它的核心assumption：“conditional independence assumption”，即在给定y的情况下，每个x/feature的发生都是独立的。</p>
+<h2 id="通用NB模型"><a href="#通用NB模型" class="headerlink" title="通用NB模型"></a>通用NB模型</h2><p>NB模型有许多，包括：</p>
+<ol>
+<li>Bernoulli NB</li>
+<li>Gaussian NB</li>
+<li>Multinomial NB</li>
+<li>Multi-class NB<br>然而这些模型唯一变化只有<strong>event model</strong>，即x和y的分布, 求解过程都是一致的：<br>核心思想和logistic regression等模型还是一样：<br>$$\hat{y} = argmax(P(y | x))$$<br>而由于Bayes rule，我们将计算$P(y|x)$转化为计算$P(x,y)$<br>$$argmaxP(y|x) = argmaxP(x, y)/P(x) = argmaxP(x, y) = argmaxP(x|y)P(y)$$</li>
+</ol>
+<p>a) 计算loglikelihood<br>$$L(\phi, \theta)= log\prod_{i=1}^{N}P(x^{(i)}, y^{(i)}|\phi, \theta) = \sum_{i=1}^{N}logP(x^{(i)}, y^{(i)}|\phi, \theta) $$<br>$$= \sum_{i=1}^{N}logP(y^{(i)}|\phi) +  \sum_{m=1}^{M}logP(x_{m}^{(i)}|y^{(i)}, \theta)$$<br>其中，$\phi$控制$y$, $\theta$控制$x$.<br>b) 分别计算对$\phi$和对$\theta$的derivative（close-form）<br>c) derivative = 0 即j解出$\phi$和$\theta$</p>
+<h2 id="MAP-vs-MLE"><a href="#MAP-vs-MLE" class="headerlink" title="MAP vs MLE"></a>MAP vs MLE</h2><p>NB模型的objective function可以是MAP也可以是MLE。但MLE有一个弊端，那就是当P(x|y) = 0的时候，P(y|x)也将变为0。这个弊端是由于我们仅从当前的数据得出结论，解决方法是使用MAP。MAP是在MLE的前提下又加入了$P(\phi, \theta | \alpha, \beta)$，由于\phi和\theta决定了$y$和$x$的分布，因此它们的先验概率分布即。可以看作引入了pseudo data，增加了样本数，得出的结论更加贴近真实的（数据量比较大）情况。</p>
+<h2 id="生成模型-generative-model-vs-判别模型-discriminitive-model"><a href="#生成模型-generative-model-vs-判别模型-discriminitive-model" class="headerlink" title="生成模型(generative model) vs 判别模型 (discriminitive model)"></a>生成模型(generative model) vs 判别模型 (discriminitive model)</h2><p>Naive Bayes模型是学习的第一个生成模型，之前所学的logistic regression等都是判别模型。<br>生成模型需要对数据的分布进行assumption，需要先生成联合概率分布P(x, y)，然后再根据Bayes rule计算出P(y|x); 而判别模型则并不对x和y的分布作任何假设，直接通过现有的数据推出P(y|x)。</p>
+<h2 id="更新知识树"><a href="#更新知识树" class="headerlink" title="更新知识树"></a>更新知识树</h2><p>学习了Naive Bayes Model之后，decision function的知识树可以更新为：</p>
+<ol>
+<li>perceptron</li>
+<li>linear regression</li>
+<li>logistic regression(dicrimitive model)</li>
+<li><strong>naive bayes model(generative model)</strong></li>
+<li>NN for classification</li>
+<li>NN for regression</li>
+</ol>
+<p>Objective function增加了MAP方法。</p>
+<p>Optimization function中的closed form形式还适用于Naive Bayes。</p>
 
       
     </div>
@@ -497,7 +481,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+            <a href="/tags/cmu/" rel="tag"># cmu</a>
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
           
         </div>
       
@@ -510,8 +496,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/28/TreeMap/" rel="next" title="TreeMap">
-                <i class="fa fa-chevron-left"></i> TreeMap
+              <a href="/2019/03/24/ML-learning-notes-the-Big-Picure-of-Machine-Learning/" rel="next" title="ML learning notes: the Big Picture">
+                <i class="fa fa-chevron-left"></i> ML learning notes: the Big Picture
               </a>
             
           </div>
@@ -519,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/01/Leetcode-today-2/" rel="prev" title="Leetcode today 2">
-                Leetcode today 2 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -695,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#947-Most-Stones-Removed-with-Same-Row-or-Column"><span class="nav-number">1.</span> <span class="nav-text">947. Most Stones Removed with Same Row or Column</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#635-Design-Log-Storage-System"><span class="nav-number">2.</span> <span class="nav-text">635. Design Log Storage System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#776-Split-BST"><span class="nav-number">3.</span> <span class="nav-text">776. Split BST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#529-Minesweeper"><span class="nav-number">4.</span> <span class="nav-text">529. Minesweeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#503-Next-Greater-Element-II"><span class="nav-number">5.</span> <span class="nav-text">503. Next Greater Element II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#694-Number-of-Distinct-Islands"><span class="nav-number">6.</span> <span class="nav-text">694. Number of Distinct Islands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#230-Kth-Smallest-Element-in-a-BST"><span class="nav-number">7.</span> <span class="nav-text">230. Kth Smallest Element in a BST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#729-My-Calendar-I"><span class="nav-number">8.</span> <span class="nav-text">729. My Calendar I</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#730-731-My-Calendar-II-III"><span class="nav-number">9.</span> <span class="nav-text">730-731. My Calendar II III</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#304-Range-Sum-Query-2D-Immutable"><span class="nav-number">10.</span> <span class="nav-text">304. Range Sum Query 2D - Immutable</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用NB模型"><span class="nav-number">1.</span> <span class="nav-text">通用NB模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAP-vs-MLE"><span class="nav-number">2.</span> <span class="nav-text">MAP vs MLE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成模型-generative-model-vs-判别模型-discriminitive-model"><span class="nav-number">3.</span> <span class="nav-text">生成模型(generative model) vs 判别模型 (discriminitive model)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新知识树"><span class="nav-number">4.</span> <span class="nav-text">更新知识树</span></a></li></ol></div>
             
 
           </div>
@@ -839,7 +821,7 @@
   
 
 
-  <script src="/js/src/bootstrap.js?v=7.0.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
 
 
   
@@ -864,6 +846,53 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
   
 
 
