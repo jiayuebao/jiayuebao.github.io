@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Notes++">
 <meta property="og:description" content="Selection SortSelect the smallest one, move to first; select the second smallest one, move to second…1234567891011public class Selection &amp;#123;    public static void sort(int[] a) &amp;#123;        for (i">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-14T13:42:25.211Z">
+<meta property="og:updated_time" content="2019-04-02T14:07:04.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sorting">
 <meta name="twitter:description" content="Selection SortSelect the smallest one, move to first; select the second smallest one, move to second…1234567891011public class Selection &amp;#123;    public static void sort(int[] a) &amp;#123;        for (i">
@@ -383,7 +383,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-14 09:42:25" itemprop="dateModified" datetime="2019-03-14T09:42:25-04:00">2019-03-14</time>
+                <time title="Modified: 2019-04-02 10:07:04" itemprop="dateModified" datetime="2019-04-02T10:07:04-04:00">2019-04-02</time>
               
             
           </span>
@@ -456,7 +456,7 @@
 <li>O(N^(3/2))</li>
 </ul>
 <h2 id="Merge-Sort"><a href="#Merge-Sort" class="headerlink" title="Merge Sort"></a>Merge Sort</h2><p>Two sorted array merge to one sorted array.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private static void merge(int[] a, int low, int high, int mid) &#123;</span><br><span class="line">    int i = low;</span><br><span class="line">    int j = mid + 1;</span><br><span class="line">    </span><br><span class="line">    for (int k = low; k &lt;= high; k++) &#123;</span><br><span class="line">        aux[k] = a[k];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for (int k = low ; k &lt;= high; k++) &#123;</span><br><span class="line">        if (i &gt; mid) a[k] = a[j++];</span><br><span class="line">        else if (j &gt; high) a[k] = a[i++];</span><br><span class="line">        else if (a[i] &lt; a[j]) a[k] = a[i++];</span><br><span class="line">        else a[k] = a[j++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private static void merge(int[] a, int low, int high, int mid) &#123;</span><br><span class="line">    int i = low;</span><br><span class="line">    int j = mid + 1;</span><br><span class="line">    </span><br><span class="line">    for (int k = low; k &lt;= high; k++) &#123;</span><br><span class="line">        aux[k] = a[k];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for (int k = low ; k &lt;= high; k++) &#123;</span><br><span class="line">        if (i &gt; mid) a[k] = aux[j++];</span><br><span class="line">        else if (j &gt; high) a[k] = aux[i++];</span><br><span class="line">        else if (a[i] &lt; a[j]) a[k] = aux[i++];</span><br><span class="line">        else a[k] = aux[j++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Top-down<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Merge &#123;</span><br><span class="line">    private static int[] aux;</span><br><span class="line">    </span><br><span class="line">    public static void sort(int[] a) &#123;</span><br><span class="line">        aux = new int[a.length];</span><br><span class="line">        sort(a, 0, a.length-1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void sort(int[] a, int low, int high) &#123;</span><br><span class="line">        if (high &lt;= low) return;</span><br><span class="line">        int mid = low + (high - low)/2;</span><br><span class="line">        sort(a, low, mid);</span><br><span class="line">        sort(a, mid+1, high);</span><br><span class="line">        merge(a, low, high, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>time O(NlogN)<ul>
@@ -601,7 +601,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -613,6 +613,8 @@
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
                     
+                    
+                      
                     
                       
                     
