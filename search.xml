@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Computer Networks: P2P]]></title>
+    <url>%2F2019%2F04%2F26%2FCDN%2F</url>
+    <content type="text"><![CDATA[Client-Server模式的网络，采取集中式管理，所有client都向一个server获取数据，如果client过多的话，就会造成server负荷非常重。P2P 网络是相对于C/S网络的另一种网络，所有节点即是client又是server，所有节点对等。 P2P Definition: Distributed systems consisting of interconnected nodes able to self-organize into network topologies with the purpose of sharing resources such as content, CPU cycles, storage and bandwidth, capable of adapting to failures and accommodating transient populations of nodes while maintaining acceptable connectivity and performance, without requiring the intermediation or support of a global centralized server or authority. P2P网络是一种overlay network。 典型的P2P例子 BitTorrent Tor Skype]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>p2p</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks: TCP Advanced]]></title>
+    <url>%2F2019%2F04%2F26%2FTCP-2%2F</url>
+    <content type="text"><![CDATA[上一节中介绍了TCP的基础内容，本节将对于TCP进行更多探究，包括它的fast retransmit，slow start，fast recovery等机制。 AIMD in TCP Reno回顾：sending window size = min(measured congestion window，advertised window）Reno确定measured congestion window的三个阶段： Slow start，使用multiplicative increase Congestion avoidance，使用additive increase Fast recovery，recover from easy packet loss Fast Retransmit (easy packet loss)其实不需要timeout就能快速地知道packet loss，这是因为一旦丢包，就会传duplicate的ACK。ACK用的是cumulative ACK，也就是ACK sequence代表前面所有的bit它都有，如果传1000，2000，4000，5000，中间丢了3000，那么2000之后就会多次传同一个ACK。如果看到相同的ACK 三次，就判定为packet loss。 从这里也可以看出来，timeout loss是很严重的，说明大量的packet都丢失了！ Slow Start在刚启动时，congestion window size以1，2，4，8，…..的速度增长，到达某一个阈值之后，再进行正常的AIMD控制congestion window。 Fast RecoverySender idle for some time, waiting for 0.5 cwnd worth of duplicate ACKs. What is good and bad in TCP Reno Good: Reno meets 4 criteria of a good CCA as definedby Chiu and Jain: efficiency, fairness, distributedness, and convergence. Bad: Reno’s use of packet loss as congestive signalhurts performance in modern networks.]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>tcp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks:TCP Basics]]></title>
+    <url>%2F2019%2F04%2F26%2FTCP-1%2F</url>
+    <content type="text"><![CDATA[Network层只能做到best effort，要达到reliable transmission则需要Transport层的帮助了。 Transport Layer主要有UDP和TCP。UDP只有demultiplexing和error detection的功能。TCP有demultiplexing, error detection, error recovery, in-order delivery, message boundaries, connection abstraction, congestion control等等功能. In a nutshell, TCP主要就是围绕如何处理lost packet，实现可靠传输。 lost packet是指: 长时间没有收到的packet 收到但是checksum不match的packet Naive思想： Stop and Waitsender发一个packet (含有sequence number)，等待接收receiver的ACK。如果sender发现timeout还没有收到ACK，retransmit。如果receiver发现checksum不match，不发ACK，sender还是会resend。 Q：为什么需要sequence number?A：区分是duplicate packet还是retransmit packet。 Q: Stop and wait太慢了，如何提升速度？A：发送一个window的packet。 接下来需要解决两个问题：1）怎么解决loss问题2） window size应该有多大 1）处理loss方法#1 Go back Nsender每次发{n}个packet，为每个packet设置timeout；顺序接收ACK，下一个sequence number的ACK没有收到，就忽略后面的ACK；如果timeout了还是没有收到，就重新发送这个timeout packet和它后面所有的packet。 Receiver和Stop and Wait一样。 方法 #2 Selective Repeatsender每次发{n}个packet，为每个packet设置timeout；如果window的左边收到了ACK，window就forward，发送所有window中没有收到ACK的packet；timeout的时候只重新传timeout的packet。 Receiver通过一个window-size的buffer。当packet out of order的时候，把它们存进buffer中，并还是传回一个ACK。 Cumulative ACKTCP使用cumulative ACK和Go back N的变种。 2) window size Window定义回顾：window是已经发送但未收到ACK的bytes number** 考虑Flow Control-&gt; receiver在ACK中发advertised window（W）来告诉sender自己的buffer还剩多少size。-&gt; sender必须send &lt;=advertised window, 才不会overload the receiver. 考虑Congestion Control-&gt; 时延带宽BDP= bits/time x RRT-&gt; sender必须send &lt;= BDP, 才不会overload the network. Congestion control algorithmcongestion control再讨论：1 . Network并不会告诉我们bandwidth和RTT。2 . 我自己的bandwidth depends on network中的其他用户。3 . 多发的packets不一定会丢失，可能存在router的queue中。Determine right congestion window是很困难的，因为network不会告诉我们它还剩多少capacity。 基于上述前提，使用Congestion control algorithm用来确定window size。 有很多的congestion control algorithm，介绍最基础的一种，TCP Reno，也就是我们通常所说的TCP。 TCP Reno基本思想：如果丢包了，说明速度太快，减速；如果没有丢包，说明速度未到达link capacity，加速。 TCP Reno加减速策略（every RTT）： AIAD： 没丢包 window_size += 1; 丢包 window_size -= 1 MIAD：没丢包 window_size *= 2; 丢包 window_size -= 1 AIMD：没丢包 window_size += 1; 丢包 window_size /= 2 MIMD: 没丢包 window_size *= 2; 丢包 window_size /= 2=&gt; AIMD胜出：be cautious in speeding up, be aggressive in slowing down. Congestion control algorithm是TCP关键的一环，在下一节advanced部分还会介绍更多内容。 TCP ConnectionNetwork Layer Data: DatagramTransportation Layer Data: Segment TCP SegmentTCP segment(data) + TCP header = IP DataIP Data + IP header = IP packet IP packet: 大小不超过MTU (~1500 bytes)TCP packet: 有TCP header的IP packetTCP segment: 大小不超过MSS = MTU -(IP header) - (TCP header) TCP header souce port和 destination port用来mux和demux。 sequence number：1st byte in segment = initial sequence number + k ISN是第一个byte的sequence number，动态，不能固定为0，在建立连接之后告诉其他host自己的ISN。 Acknowledgement: 上一个收到包的sequence number + 1cumulative!: have every byte before this sequence number. Flags: SYN, ACK, FIN, RST, PSH, URG TCP Connection三次握手： A sends SYN to BSYN, SeqNum = x B returns SYN ACK to ASYN + ACK, SeqNum = y, Ack = x + 1 A sends ACK to BACK, ACK = y + 1 A sends Data… SYN Packet Loss怎么办？#1 sender设置timeout，过了时间retransmit，一般为3～6s （慢）#2 user click hyperlink again或者reload，trigger connection的abort （快）### TCP Connection Tearing Down1) one side at a time1. A sends FIN to B2. B sends ACK to A(Connection half-closed)3. B sends FIN to A4. A sends ACK to BTIME_WAIT… : B can retransmit FIN if ACK is lost(Connection now closed) 2) both together A sends FIN to B B sends FIN+ACK to A A sends ACK to BTIME_WAIT: B can retransmit FIN ACK if ACK lost (Connection now closed) 在ESTABLISHED之后，开始传data，运行congestion control algorithm。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>tcp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks: Interdomain Routing BGP]]></title>
+    <url>%2F2019%2F04%2F25%2FBGP%2F</url>
+    <content type="text"><![CDATA[可以把network看作是一个个的自治系统(AS)组成的, 一个AS就是一个domain。因此，routing分为域内路由（intradomain routing)和域间路由(interdomain routing)。 Intradomain的routing protocol包括Broadcast，Distance Vector和Link State；而本节要讲的BGP则是interdomain的routing protocol。 AS的三种角色： customer provider peer customer pays for providerpeers don’t pay each other BGP inspired by Distance Vector.一个AS把”best routes” advertise给一个或多个 IP prefixes；每个AS选择它所知道的”best route”. BGP和DV的4大不同 BGP不是pick最短路径，而是pick cost最小的路径 DV传distance metric，BGP传 entire path。（非常利于avoid loops） AS可以选择不advertise a route BGP may aggregate routes for different prefixes BGP routing policySelection: 用哪个path，leave the networkExport: advertise to 哪个path，enter the network Selection使用Route Attributes。 Export: Peer-Peer 自己的peer只知道自己的customer route（并不知道互为peer） 只有自己的customer知道自己的peer route Export: Customer-Provider provider把customer routes告诉给所有node customer只把provider routes告诉给自己的customer 如果是作为customer进入network，那么可以向所有方向传输；如果是作为provider或者peer进入，那么只能向customer方向传输。 有向无环图 vallay free AttributesBGP的工作流程是：open session on TCP port 179=&gt; exchange all active routes=&gt; exchange incremental updates (while connection alive) 其中update所传输的内容为: IP prefix Attributes(1): ASPATH, 列出full AS path的vector Attributes(2): NEXT HOP Attributes(3): LOCAL PREF, local preference, 越高越好 Attributes(4): ORIGIN, 可选”e” (eBGP), “i” (iBGP), “?”(incomplete) Attributes(5): MED, how close a prefix is to the link, 越低越好 Attributes(6): IGP cost, 用于hot-potato routing，通过intra cost选择closest egress point。可能和MED冲突 选择优先级：LOCAL PREF &gt; ASPATH (pick最短路径) &gt; MED &gt; IGP cost &gt; Router ID 在AS中，即使graph上是connected，也无法保证一定能有连接，这是它的一大弱点。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>ip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks: ARP & DNS]]></title>
+    <url>%2F2019%2F04%2F25%2FDNS%2F</url>
+    <content type="text"><![CDATA[MAC地址、IP地址、域名之间是如何进行翻译的呢？ 一. IP to MAC: ARPMAC查看命令：arp -nla以太网的报文中需要知道MAC地址。当获得一个IP地址时，通过ARP得到MAC地址。 每一台装有TCP/IP协议的主机或路由器都有一张ARP缓存表。主机A接受到一个IP地址的时候:如果它的ARP缓存表中有对应的MAC地址，就把该地址加到数据包中；如果没有，就进行广播查询，只有该IP地址所在主机B才会response (MAC地址：xxx), 之后，主机A就把地址加入到自己的缓存中。下次再向主机B发送信息时，直接从ARP缓存表里查找就可以。 Proxy ARP1） 两台主机虽然在同一个网段，但不在同一个广播域2） 主机没有配置默认网关1）+2） 需要中间设备（路由器）进行代理ARP。 路由器默认不转发广播报文。 路由器的一个重要功能是把局域网广播包限制在该网内，不让扩散，否则会造成网络风暴。 当路由器收到ARP请求时，它查看MAC地址(可能需要用到ARP)…发现IP地址属于它连接的一个网络…把自己的MAC地址response回去；同时把packet转发出去 二. 域名 to IP：DNS一个IP对应多个域名：一台机器上多个service一个域名对应多个IP：load balancing 三种server: root servers top-level domain TLD servers (.com, .edu, .org…) autoritative domain DNS servers, 储存name-to-address mapping. 每一个server都知道root server的地址root server知道所有TLD server的地址一共有13个root server: http://www.root-servers.org通过anycast进行replica。 anycast 就是找到到目的地的最短路径。如果多台主机都advertise同一个地址，那么网络会把packet传到最近的那台机器上。 Inserting RRs into DNSDNS作为一种DB里面的record形式为 RR format : &lt;class, name, value, type, ttl&gt;不同的type，name和value表示不同的内容。 成立了FooBar Company，ip地址：212.44.9.128/25 在registrar上注册foobar.com 给registrar提供域名和IP地址 registrar会把 RR pairs insert进.com TLD server: foobar.com, dns1.foobar.com, NS dns1.foobar.com, 212.44.9.129, A 在dns1.foobar.com中存RR type A for www.foobar.com type MX for foobar.com Using DNSname resolution 4 things that need configured for a host to operate in a network：1）IP address 2) subnet mask 3) gateway for a host 4) DNS DNS lookup流程如下：(查找www.cmu.edu的ip) Application call getHostByName() resolver Resolver contact local DNS server local DNS server queries root server for “www.cmu.edu&quot; root server return NS(name server) record of cmu.edu local DNS server queries cmu.edu server for www.cmu.edu cmu.edu server return A record local DNS server可以进行两种query: recursive DNS query local DNS server -&gt; root server -&gt; .edu -&gt; cmu.edu -&gt; local DNS server (Only return final answer or “not found”) iterative DNS query root server -&gt; local DNS .edu -&gt; local DNS cmu.edu -&gt; local DNS (Server responds with as much as it knows: “I don’t know this name, but ask this server.”)DNS cache可以提升速度。 被cache之后，直接从local DNS server获得信息。当响应时间 &gt; TTL时，server会delete cached entry。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>ip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks: IP Protocol]]></title>
+    <url>%2F2019%2F04%2F25%2FInternet-Protocol%2F</url>
+    <content type="text"><![CDATA[• IP forwarding -&gt; global addressing, alternatives, lookup tables• IP addressing -&gt;hierarchical, CIDR• IP service -&gt; best effort, simplicity of routers• IP packets -&gt; header fields, fragmentation, ICMP IP header如何设计需要针对network中的task和会遇到的问题：• Parse packet IP version number (4 bits), packet length (16 bits) • Carry packet to the destination Destination’s IP address (32 bits) • Deal with problems along the way loops: TTL (8 bits) corruption: checksum (16 bits) packet too large: fragmentation fields (32 bits) • Accommodate evolution version number (4 bits) (+ fields for special handling) • Specify any special handling ToS (8 bits), Options (variable length) ICMP全称Internet Control Message Protocol, 用来发送error和control information的短消息。重要用途是Path MTU discovery。 Path MTU discoveryPacket fragmentation is harmful! 资源浪费(packet just bigger than MTU) bad end-to-end performance(fragment loss) Path MTU discovery protocal在发送real packet之前path中确定minimun MTU, 通过ICMP来汇报错误信息。 首先，发送一个max-size的packet拥有“do not fragment”的flag。一旦出现问题，就返回ICMP message “Fragmentation needed”. 修改max-size，再次发送“do not fragment”。（“没有消息就是好消息”） NAT本质是一种middlebox，改变了IP addressing model。 以往，每个主机都有一个unique IP address。但这不仅不够安全也并没有太大必要。事实上，大部分的机器都是client，并不需要public IP address。 通过NAT，域内采用private IP，域外只能访问public IP。经常和防火墙结合使用。当域A的某一host想要访问域B的网站，它的请求会被防火墙拦截，创建了NAT table entry 。之后，防火墙将自己的IP地址(public IP address)替换该host的IP地址(private IP address)，自己的port替换该host的port，再把请求发送出去。 符合network achitecture设计，NAT完成end point mapping。 IPv6地址大小128位，书写方式和IPv4也完全不一致, x: x: x: x: x: x: x: x: 每个x表示16位的地址段的16进制表示，例如：47CD: 1234: 4422: AC02 : 0022 : 1234 : A456 : 0124 可以直接把48位MAC地址嵌入。 有了IPv6之后，NAT可能不仅需要translate between private和public IP，还需要translate between IPv4和IPv6。 TunnelingIPv6，VPN等都需要使用tunneling。Tunneling通过在原有header中增加一个IP header让packet走指定路线。Tunneling是一种overlay network。（network on the network）]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>ip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks: IP Addressing]]></title>
+    <url>%2F2019%2F04%2F24%2FComputer-Networks-IP%2F</url>
+    <content type="text"><![CDATA[MAC地址的addressing是flat addressing, 也就是一个host一个address，适用于Ethernet, 但是非常不利于scalability(table 太大了)。 在IP addressing中，用的是hiearchy addressing。32-bit number，4段dotted-quad，network和host两个部分。 1. 传统 IP addressing传统的addressing分class，每个class含有不同数量的network和host：class A(1.0.0.1 to 126.255.255.254): 0开头，network 7 (128-2个，0和128保留)，host 24 (2^24-2台)class B(128.1.0.1 to 191.255.255.254): 10开头，network 14, host 16 (65534台)class C(192.0.1.1 to 223.255.254.254): 110开头，network 21, host 8 (256-2台, 0非法，255广播) 每个class一个转发表，结构为&lt;网络号, 下一跳&gt;：128.2.11.43=&gt; class B=&gt; class + network: 128.2=&gt; 在class B的转发表中找128.2=&gt; 转发给下一跳 2. 子网子网把host部分拆成：subnet + host；network部分不动。每次将子网掩码和IP地址按位“与”，就得到了host。 划分子网用于减少分配的网络总数。一个网络ID适用于多个物理网络。子网彼此之间要离得比较近，从远处来看，就是一个单一网络，转发表就只需要一条记录。 转发表的结构变为&lt;子网号，子网掩码，下一跳&gt;：128.96.34.139=&gt; 遍历所有的子网掩码，按位“与” =&gt; 结果与子网号不匹配？下一条 =&gt; 结果与子网号匹配？下一跳=&gt; 找不到匹配：发给default router 3. 现代IP addressing：CIDR解决了两个问题： 1）有效利用IP地址在CIDR中，network和host的长度不固定 需要”/“来说明network的长度，例如128.23.9/26 即为前26位表示network，剩下部分为host。C类地址就是 /24 network - prefixhost - suffix 2）防止转发表中存的网络号越来越多以往分配网络号都是“first come first serve”， CIDR则是Allocation Done Hierarchically。例如，两个公司都连到了128.112.128/21这个ISP，那么给这两个公司分配128.112.128/24和128.112.135/24 CIDR的转发需要通过“Longest Prefix Match”原则来匹配网络号。路由汇聚减少table size： 3 forwarding entries A/B/C 01010011.xy/10 can be combined into 01010011/8 if they forward through the same port 4th entry D that uses a different egress port has its own entry LPM匹配： Packets to A/B/C will match only the 01010011/8; Packets to D will match entries but will prefer the short “/10” entry Legacy prefixes (e.g., 128.2) also often have their own entry ～30个forwarding table？不，一个forwarding table，使用trie。 4. 如何获得一个IP1) Regional Internet Registries (RIR)2) DHCP]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>ip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Networks: Intradomain Routing]]></title>
+    <url>%2F2019%2F04%2F24%2FComputer-Network-Routing%2F</url>
+    <content type="text"><![CDATA[当把point-to-point network进行拓展，就得到了LAN(local area network)。more nodes =&gt; packet switching 建立一个LAN所需要的步骤 选择一个addressing scheme MAC 地址 选择一个routing algorithm (intradomain routing) Learning bridges (switch) Spanning tree (switch) Distance vector (router) Link State (router) 1. Learning bridges每个switch maintain一个table，结构为&lt;MAC地址, Port, Age&gt;，entry数为所有host数。 1234567ReceivePacket(): Is source的MAC地址 in table: if no, insert (source_MAC_Addr, port, time) in table; Is dest的MAC地址 in table: if no, send out all ports; if yes, send out that port from table; clean_up(time) // remove过旧的数据 重大缺陷是会出现loops！解决方案是最小生成树，保证网络的topology没有loops。 2. 最小生成树 Spanning treetable的结构 &lt;Root_ID, Path_Length, Next_Hop&gt;，对于root来说，&lt;Me, 0, Me&gt;。123456789do &#123; ReceiveRoute(root_id,path_length,next_hop): if root_id &gt; 当前root_id: 保持不变; if root_id &lt; 当前root_id: 更新，并通知所有neighbors。&#125; while (not converge)remove all links that don’t connect someone on their path tothe root node 需要先运行spanning tree protocol, 再进行forwarding。无论是learning bridge还是spanning tree都没有寻找两点之间的最短路径。这就引出了link state和distance vector。 3. Distance Vector (RIP) 没有整张图的copy，只有自己和其他所有node的距离信息 A 的routing table： via B via C to B 1 INF to C INF 1 to D INF INF 取routing table中每一行的最小值可以得到A的distance vector： to X min distance to A 0 to B ? to C ? to D ? 一开始routing table是空的，那么就需要learn by DV from others。routing table和DV都是maintain在router中的，每个router：1) maintain一个routing table2) 拥有一个DV3) 和neighbors交换DV4) look over neighbors给自己的options，并选择最好的一个5) iterate until converge to a set of shortest paths 关键问题：count to infinity -&gt; very slow recoveryQ: 为什么会引起count to infinity?A: routing table中的路径存在loop。比如，A的routing table中，如果C-B link weight特别大，可能是路径A-C-A-B产生的。如果突然增加AB link的值，就会产生loop。 Q: loop什么时候可以停止？A：直到增加到了real value的时候。 4. Link State (OSPF) 所有node都知道它们有哪些邻居 它们把自己邻居的情况广播给其他node 每个node都有一整张图 通过DIJKSTRA’s algorithm计算出最短路径DIJKSTRA算法每次选取距离最短的node放入set，然后对该node的每一个neighbor check是否需要更新距离为dist(source, min_node) + dist(min_node, neighbor)。12345678910111213141516171819202122function Dijkstra(Graph, source): create vertex set Q for each vertex v in Graph: dist[v] ← INFINITY prev[v] ← UNDEFINED add v to Q dist[source] ← 0 while Q is not empty: u ← vertex in Q with min dist[u] remove u from Q for each neighbor v of u: // only v that are still in Q alt ← dist[u] + length(u, v) if alt &lt; dist[v]: dist[v] ← alt prev[v] ← u return dist[], prev[]]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer network</tag>
+        <tag>routing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/24]]></title>
+    <url>%2F2019%2F04%2F24%2FLeetcode-2019-04-24%2F</url>
+    <content type="text"><![CDATA[Leetcode 2019/04/24打卡Array ksum系列： 2 sum 2 sum all pair I 2 sum all pair II 2 sum closest 2 sum smaller]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ML Learning notes: Reinforcement learning]]></title>
+    <url>%2F2019%2F04%2F22%2FReinforcement-learning%2F</url>
+    <content type="text"><![CDATA[Value Iteration更新：value = reward of action + \gammar * max(next_state_value) Policy IterationQ-Learning通过公式，我们发现optimal policy其实仅仅由Q^[*]决定，由此引出了Q-Learning。更新：]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/18]]></title>
+    <url>%2F2019%2F04%2F18%2FLeetcode-2019-04-18%2F</url>
+    <content type="text"><![CDATA[Leetcode 2019/04/18打卡Array two pointer部分完成： Array Duplication IV (hard) Array Duplication V]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/16]]></title>
+    <url>%2F2019%2F04%2F16%2FLeetcode-2019-04-16%2F</url>
+    <content type="text"><![CDATA[Leetcode 2019/04/16打卡一道题却做了很久QAQ Interleave Positive and Negative Elements]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/15]]></title>
+    <url>%2F2019%2F04%2F15%2FLeetcode-2019-04-15%2F</url>
+    <content type="text"><![CDATA[Leetcode 打卡2019/04/15每天只能刷3道题QAQ，继续two pointer, array去重系列: Array Deduplication I/II/III]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/09]]></title>
+    <url>%2F2019%2F04%2F09%2FLeetcode-2019-04-09%2F</url>
+    <content type="text"><![CDATA[Leetcode 2019/04/09打卡。今天开始 array的two pointer专题，做了关于rainbow sort的一系列题： Move zero to the End I/II Rainbow sort I/II/III 与low交换，curr++；与high交换，curr不变。这是因为low的部分是已经sort过的部分，而high还没有sort过。 明天继续two pointer！]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/08]]></title>
+    <url>%2F2019%2F04%2F08%2FLeetcode-2019-04-08%2F</url>
+    <content type="text"><![CDATA[Leetcode 2019/04/08打卡～今天做完了array的2D Array部分，题型比较统一： Spiral Order Generate I/II Rotate Matrix Set Matrix Zero 从明天开始two pointers！]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/05]]></title>
+    <url>%2F2019%2F04%2F05%2FLeetcode-2019-04-05%2F</url>
+    <content type="text"><![CDATA[Leetcode 打卡 2019/04/05结束Array sort系列，开始2D Array系列： Sort in specific order (原来Arrays.sort要加comparator的话必须要Integer[]才行，int[]是会报错的) Spiral order traversal I/II]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ML learning notes: VC dimension]]></title>
+    <url>%2F2019%2F04%2F03%2FML-learning-notes-VC-dimension%2F</url>
+    <content type="text"><![CDATA[学习PAC learning的时候需要掌握VC维的概念。今天就来梳理一下VC维究竟是什么。 VC维 is tied to分类器。简单来讲，分类器H的VC维 $VC(H) = max(|S_{shattered}|)$, 即可以被H shatter的set中最多的点的个数。来看一下官方解释： “If the VC-dimension is d, that means there exists a set of d points that can be shattered, but there is no set of d+1 points that can be shattered.” “For a set to be shatterable you need to be able to perfectly classify every possible labeling of these points.” 举个例子，如果有7个点，2个label，那么每个点都有2种label的可能性，#labelings = $2^{|S|} = 2^7$；如果分类器H is capable to split 这$2^7$种labeling，那么这个set是shatterable by H的。如果H无法shatter所有8个点的set，那么$VC(H) = 7$。 Decision tree的 $|H|$ 是finite的，但很多分类器的 $|H|$ 往往是infinite的。比如logistic regression这样的线性分类器，线可以随意地画，有∞种画法。但即使$|H|$是∞的，$VC(H)$却可以是有限的。对于M维的线性分类器(点有M个feature)而言，它的VC dimension是$M+1$ （可以简单想象成一条线可以把两个点分开）。当然，也可能存在VC dimension也是∞的情况，那就是无论set中有多少点，H都能完美split它们所有的labeling。 VC维的大小反映了分类器的复杂程度（#feature/#hidden unit/#depth of Decision Tree）。这对于model selection有很好的启示。VC维越大，training error越小，模型越复杂。test_error=training _error + model_complexity，为减小testing error，就需要找到training error和model complexity的一个平衡点（使用regularization）。 那么VC维对PAC learning有什么用呢？PAC learning解决的问题是需要有多少training sample，training error的情况能近似体现true error的情况。sample的个数和 $|H|$有关，而当$|H|$是∞的时候，使用$VC(H)$来代替$|H|$。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/03]]></title>
+    <url>%2F2019%2F04%2F03%2FLeetcode-1029-04-03%2F</url>
+    <content type="text"><![CDATA[Leetcode打卡2019/04/03还是array sort专题，复习了quick sort。quick sort的具体结构和merge sort很像：sort的时候需要low和high, partition的时候需要low和high，每次partition取第一个。需要注意的是： 必须要保证循环跳出的时候 j &lt; i，因此partition的时候先对坐标进行 ++和–的操作，再进行其他判断，]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/04/02]]></title>
+    <url>%2F2019%2F04%2F02%2FLeetcode-2019-04-02%2F</url>
+    <content type="text"><![CDATA[Leetcode打卡2019/04/02今天开始array专题，从最基本的sort开始复习： selection sort: 选最小的，与第一个交换；选第二小的与第二个交换；…… insertion sort: 选定第二张牌，插到前面适合的位置；选定第三张牌，插到前面适合的位置；…… merge sort: sort的时候需要low和high，并计算出mid；merge的时候需要low, mid和high；先把array中的[low, high]值复制到aux，再把aux中[low, high]的值merge回array]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/03/29]]></title>
+    <url>%2F2019%2F03%2F29%2FLeetcode-2019-03-29%2F</url>
+    <content type="text"><![CDATA[Leetcode 打卡 2019/03/29priority queue专题： Heap sort K Sorted Array 特别复习了Heap sort。Heap sort需要两步完成：首先要建最大堆，从后往前sift down; 之后排序，每次都把第一个元素和最后一个元素交换，再对第一个元素sift down。]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/03/28]]></title>
+    <url>%2F2019%2F03%2F28%2FLeetcode-2019-03-28%2F</url>
+    <content type="text"><![CDATA[Leetcode 打卡 2019/03/28还是priority queue专题。二叉堆的二叉树表示必须要完全二叉树才行。 Median Tracker Determine if array is Min Heap Determin if binary tree is Min Heap]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode 2019/03/27]]></title>
+    <url>%2F2019%2F03%2F27%2FLeetcode-2019-03-27%2F</url>
+    <content type="text"><![CDATA[Leetcode 打卡 2019/03/27还是需要每天保持做题手感，看看自己能不能坚持下来。今天开始是priority queue专题练习: K Closest Points to Origin Heap Offer Operation K Smallest in unsorted Array Kth Largest Element in an Array Top K Frequent Words]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ML learning notes: Naive Bayes Model]]></title>
+    <url>%2F2019%2F03%2F25%2FML-learning-notes-Naive-Bayes-Model%2F</url>
+    <content type="text"><![CDATA[Naive Bayes Model也是一个很常见的ML模型了，对应于Big picture，属于decision function；它也是目前学习到的第一种Bayesian Network。和Logistic Regression一样，属于probabilistic learning。 Naive Bayes Model和之前学习过的Linear Regression, Logistic Regression, Neural Network等模型最大的不同是，它可以直接得出closed-form解，而不用通过SGD一次次地更新参数。之所以可以实现闭环解源于它的核心assumption：“conditional independence assumption”，即在给定y的情况下，每个x/feature的发生都是独立的。 通用NB模型NB模型有许多，包括： Bernoulli NB Gaussian NB Multinomial NB Multi-class NB然而这些模型唯一变化只有event model，即x和y的分布, 求解过程都是一致的：核心思想和logistic regression等模型还是一样：$$\hat{y} = argmax(P(y | x))$$而由于Bayes rule，我们将计算$P(y|x)$转化为计算$P(x,y)$$$argmaxP(y|x) = argmaxP(x, y)/P(x) = argmaxP(x, y) = argmaxP(x|y)P(y)$$ a) 计算loglikelihood$$L(\phi, \theta)= log\prod_{i=1}^{N}P(x^{(i)}, y^{(i)}|\phi, \theta) = \sum_{i=1}^{N}logP(x^{(i)}, y^{(i)}|\phi, \theta) $$$$= \sum_{i=1}^{N}logP(y^{(i)}|\phi) + \sum_{m=1}^{M}logP(x_{m}^{(i)}|y^{(i)}, \theta)$$其中，$\phi$控制$y$, $\theta$控制$x$.b) 分别计算对$\phi$和对$\theta$的derivative（close-form）c) derivative = 0 即j解出$\phi$和$\theta$ MAP vs MLENB模型的objective function可以是MAP也可以是MLE。但MLE有一个弊端，那就是当P(x|y) = 0的时候，P(y|x)也将变为0。这个弊端是由于我们仅从当前的数据得出结论，解决方法是使用MAP。MAP是在MLE的前提下又加入了$P(\phi, \theta | \alpha, \beta)$，由于\phi和\theta决定了$y$和$x$的分布，因此它们的先验概率分布即。可以看作引入了pseudo data，增加了样本数，得出的结论更加贴近真实的（数据量比较大）情况。 生成模型(generative model) vs 判别模型 (discriminitive model)Naive Bayes模型是学习的第一个生成模型，之前所学的logistic regression等都是判别模型。生成模型需要对数据的分布进行assumption，需要先生成联合概率分布P(x, y)，然后再根据Bayes rule计算出P(y|x); 而判别模型则并不对x和y的分布作任何假设，直接通过现有的数据推出P(y|x)。 更新知识树学习了Naive Bayes Model之后，decision function的知识树可以更新为： perceptron linear regression logistic regression(dicrimitive model) naive bayes model(generative model) NN for classification NN for regression Objective function增加了MAP方法。 Optimization function中的closed form形式还适用于Naive Bayes。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ML learning notes: Neural Network]]></title>
+    <url>%2F2019%2F03%2F25%2FML-learning-notes-Neural-Network%2F</url>
+    <content type="text"><![CDATA[NN是ML中重要的概念，坑先开在这里，回头再填。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ML learning notes: the Big Picture]]></title>
+    <url>%2F2019%2F03%2F24%2FML-learning-notes-the-Big-Picure%2F</url>
+    <content type="text"><![CDATA[学习Machine Learning也有一段时间了（Matt真的是一位非常可爱的老师），今天就梳理一遍ML到底是在做什么。希望通过梳理，可以对ML有更好的理解。 ML问题无外乎以下3个步骤： 给定一个训练集 $D$ 选择 decision function 和 loss function$$\hat{y} = h_{\theta}(x)$$$$J(y, \hat{y}) = J_{\theta}(y, h_{\theta}(x))$$ 选择optimization method更新 $\theta$ 不同的ML算法其实就是不同的decision function, loss function和optimization method的各种结合。 A. 目前已经学到的decision function包括：1. decision tree: 分类器2. KNN：分类器3. perceptron: 线性分类器, 一个线性的超平面将数据分为两类$y\in${-1, 1}$$\hat{y} = sign(w_{1}x_{1}+…+w_{m}x_{m} + b) = sign(\theta^{T}x)$$4. linear regression:（与MSE，closed-form/SD/SGD结合）回归器$$\hat{y} = \theta^{T}x$$5. logistic regression: (与MLE，SD/SGD结合）概率模型分类器，y不再是一个deterministic value, 而是一个概率分布，最终分类结果选择概率最大的那一个。1) binary: 使用sigmoid（softmax的特例）$$P(y=1|x) = sigmoid(\theta^{T}x) = \frac{1}{1+exp(-\theta^{T}x)}$$$$P(y=0|x) = 1 - sigmoid(\theta^{T}x)$$2) multi-class: 使用softmax$$P(y=i|x) = softmax(\theta_{i}^{T}x) = \frac{exp(\theta_{i}^{T}x)}{\sum_{k=1}^{K}exp(\theta_{k}^{T}x)}$$ 6. neural network : （与cross-entropy, SGD结合）分类器/回归器 1) 作为分类器（1 hidden layer） $$P(y|x) = \sigma(w_{2}\sigma(w_{1}x+b_{1})+b_{2})$$ 其中，$\sigma(x)$可以是sigmoid函数也可以是别的激活函数。 2) 作为回归器 (1 hidden layer) $$\hat{y} = w_{2}\sigma(w_{1}x+b_{1})+b_{2}$$ NN的本质其实就是chain rule，foward从x一路计算到y和J，backward从一路通过chain rule求J对所有参数的导数，最后通过求得的导数进行参数更新。 学了NN之后，发现它并没有想象中难，希望之后有时间可以开一篇专门写NN。 B. 目前已经学到的loss function包括:1. Minimum Square Error(MSE): (与linear regression结合)$$J = \frac{1}{N}\sum_{i=1}^{N}(y^{(i)} -\hat{y}^{(i)})^{2}$$2. Maximum Likelihood Error(MLE): (与logistic regression结合) 这里的likelihood指的是log likelihood，并且认为数据是”independently identically distributed”.$$J = -\frac{1}{N}L(\theta) =-\frac{1}{N}log(\prod_{i=1}^{N}P_{\theta}(y^{(i)} | x^{(i)})= -\frac{1}{N}\sum_{i=1}^{N}logP_{\theta}(y^{(i)} | x^{(i)})$$3. Cross-entropy: (与NN结合)$$J = ylog(\hat(y) + (1 - y)log(1 - \hat{y})$$ C. 目前已经学到的optimization method包括:1. closed-form：直接计算出最优的 $\theta$，适用于线性回归2. GD: 关注所有{$x^{(i)}, y^{(i)}$}$$\theta = \theta - \lambda \nabla_{\theta}J(\theta)$$其中，$\nabla_{\theta}J(\theta) = \frac{1}{N}\sum_{i=1}^{N}\nabla J_{i}(\theta)$3. SGD：只关注某一对{$x^{(i)}, y^{(i)}$}$$\theta = \theta - \lambda \nabla_{\theta}J_{i}(\theta)$$注： $\nabla_{\theta}J(\theta) = \frac{\partial J(\theta)}{\partial \theta} = [\begin{matrix} \frac{\partial J(\theta)}{\partial \theta_{1}} \ \frac{\partial J(\theta)}{\partial \theta_{2}} \ … \ \frac{\partial J(\theta)}{\partial \theta_{m}}\end{matrix}]^{T}$]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode today 6]]></title>
+    <url>%2F2019%2F03%2F15%2FLeetcode-today-6%2F</url>
+    <content type="text"><![CDATA[LC 206, 21, 23, 88, 127, 139, 204, 232, 346, 496, 503 206. Reverse Linked List Reverse the pointer to point the previous element, both in iteration and recursion Linkedlist 21. Merge Two Sorted Lists Just like merge sort, both in iteration and recursion Merge sort, Linkedlist 23. Merge k Sorted Lists Use priority queue 88. Merge Sorted Array Merge from the end and just like merge sort Array, Merge sort 127. Word Ladder The BFS queue stores all the possible strings; remember to delete from the set or use visited array to mark the visited strings BFS 139. Word Break Only when the substring(j, i) is in wordDict and dp[j] = true, set dp[i] = true dp 204. Count Primes Mark all the possible product i * j as true Math, DP 232. Implement Queue using Stacks Pop twice to make sure the sequence is the same stack, queue 346. Moving Average from Data Stream Use queue to store the number, use a variable to track the sum Queue 496. Next Greater Element I Use a stack to record the element in descending order Stack 503. Next Greater Element II Tranverse the array twice, but the second time not push in the stack Stack]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Sorting]]></title>
+    <url>%2F2019%2F03%2F13%2FSorting%2F</url>
+    <content type="text"><![CDATA[整理selection sort, Insertion sort, shell sort, merge sort, quick sort。 Selection SortSelect the smallest one, move to first; select the second smallest one, move to second…1234567891011public class Selection &#123; public static void sort(int[] a) &#123; for (int i = 0; i &lt; a.length; i++) &#123; int min = i; for (int j = i+1; j &lt; a.length; j++) &#123; if (a[min] &gt; a[j]) min = j; &#125; swap(a, i, min); &#125; &#125;&#125; Running time not depend on the input O(N^2) Exchange operation is the fewest O(N) Insertion SortSimilar to play the card game.Keep comparing with the preceding element until find the right position.123456789public class Insertion &#123; public static void sort(int[] a) &#123; for (int i = 1; i &lt; a.length; i++) &#123; for (int j = i; j &gt; 0 &amp;&amp; a[j-1] &gt; a[j]; j--) &#123; swap(a, j-1, j); &#125; &#125; &#125;&#125; Running time depends on input best: O(N) (sorted array) average &amp; worst: O(N^2) Suitable for partially sorted arrays and small-scale arrays -&gt; shell sort Optimization: larger number move, only exchange once123456789101112public class Insertion &#123; public static void sort(int[] a) &#123; for (int i = 1; i &lt; a.length; i++) &#123; int tmp = a[i]; int j = i; // must declare here for (; j &gt; 0 &amp;&amp; a[j-1] &gt; tmp; j--) &#123; // compare with a[j-1] a[j] = a[j-1]; // move back if larger &#125; a[j] = tmp; &#125; &#125;&#125; Shell SortInsertion sort element with interval h. Decrease the interval until h = 0.12345678910111213141516public class Shell &#123; public static void sort(int[] a) &#123; int N = a.length; int h = 1; while (h &lt; N/3) h = 3*h+1; while (h &gt;= 1) &#123; // h insertion sort for (int i = h; i &lt; N; i++) &#123; for (int j = i; j &gt;= h &amp;&amp; a[j-h] &gt; a[j]; j-=h) &#123; swap(a, j-h, j); &#125; &#125; h = h / 3; &#125; &#125;&#125; can be used in large-scale arrays O(N^(3/2)) Merge SortTwo sorted array merge to one sorted array. 123456789101112131415private static void merge(int[] a, int low, int high, int mid) &#123; int i = low; int j = mid + 1; for (int k = low; k &lt;= high; k++) &#123; aux[k] = a[k]; &#125; for (int k = low ; k &lt;= high; k++) &#123; if (i &gt; mid) a[k] = aux[j++]; else if (j &gt; high) a[k] = aux[i++]; else if (a[i] &lt; a[j]) a[k] = aux[i++]; else a[k] = aux[j++]; &#125;&#125; Top-down12345678910111213141516public class Merge &#123; private static int[] aux; public static void sort(int[] a) &#123; aux = new int[a.length]; sort(a, 0, a.length-1); &#125; public static void sort(int[] a, int low, int high) &#123; if (high &lt;= low) return; int mid = low + (high - low)/2; sort(a, low, mid); sort(a, mid+1, high); merge(a, low, high, mid); &#125;&#125; time O(NlogN) best O(N) average &amp; worst O(NlogN) space O(N) Optimization: a[mid] &lt; a[mid+1] =&gt; skip merge Bottom-up123456789public class Sort &#123; public static void sort(int[] a) &#123; for (int size = 1; size &lt; a.length; size *= 2) &#123; for (int low = 0; low &lt; a.length - size; low += 2 * size) &#123; merge(a, low, Math.min(low + 2 * size - 1, a.length-1), low + size - 1); &#125; &#125; &#125;&#125; Quick SortFind the partition, left part is smaller than the partition and the right part is larger than the partition. Do the same thing to the left part and the right part. 12345678910111213private static int partition(int[] a, int low, int high) &#123; int i = low; int j = high + 1; // be aware! int target = a[low]; while(true) &#123; while (a[++i] &lt; target) if (i == high) break; while (a[--j] &gt; target) if (j == low) break; if (i &gt;= j) break; swap(a, i, j); &#125; swap(a, low, j); return j;&#125; 1234567891011public class Quick &#123; public static void sort(int[] a) &#123; sort(a, 0, a.length-1); &#125; private static void sort(int[] a, int low, int high) &#123; if (low &gt;= high) return; int j = partition(a, low, high); sort(a, low, j-1); sort(a, j+1, high); &#125;&#125; time: O(NlogN) best: O(NlogN) worst: O(N^2) -&gt; use random to solve Stabilitystable: insertion, mergeunstable: selection, quick reference: https://zhuanlan.zhihu.com/p/36987693]]></content>
+      <categories>
+        <category>Algorithms</category>
+      </categories>
+      <tags>
+        <tag>algorithms</tag>
+        <tag>sorting</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode today 5]]></title>
+    <url>%2F2019%2F03%2F12%2FLeetCode-today-5%2F</url>
+    <content type="text"><![CDATA[LC 238, 273 238. Product of Array Except Self The product of all numbers before the target multiplied by the the product of all numbers after the element; can reach O(1) space complexity Array 273. Integer to English Words Each number can be grouped by 3-digits, 3-digits, …; each 3-digit is [thousand, million, billion], 3-digit is hundred, tens, less than twenty. String]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode today 4]]></title>
+    <url>%2F2019%2F03%2F04%2FLeetcode-today-4%2F</url>
+    <content type="text"><![CDATA[LC 904, 929, 482, 975, 399, 844, 857 904. Fruit Into Baskets / 159. Longest Substring with At Most Two Distinct Characters Sliding window + HashMap 929. Unique Email Addresses Simple String operations including split, replace, indexOf, substring String 482. License Key Formatting Iterate from the end; skip all the “-“; Check K first, then append current character. String 975. Odd Even Jump Two index arrays to store next index after an even/odd skip, use TreeMap.ceilingKey and floorKey. Two dp boolean arrays, start from the end evenDp[i] = oddDp[even[i]]; oddDp[i] = evenDp[odd[i]]; DP, TreeMap 399. Evaluate Division Equation result is the edge weight, equation variables are the two vertices. Just search the graph. Graph, DFS, HashMap 844. Backspace String Compare O(n) space complexity is easy O(1) need to iterate from the end and add +1/-1 to back until back is 0, i moves at the same time. 123456789101112131415161718public boolean backspaceCompare(String S, String T) &#123; int i = S.length() - 1; int j = T.length() - 1; while (true) &#123; for (int back = 0; i &gt;= 0 &amp;&amp; (back &gt; 0 || S.charAt(i) == &apos;#&apos;); i--) &#123; back += (S.charAt(i) == &apos;#&apos;) ? 1 : -1; &#125; for (int back = 0; j &gt;= 0 &amp;&amp; (back &gt; 0 || T.charAt(j) == &apos;#&apos;); j--) &#123; back += (T.charAt(j) == &apos;#&apos;) ? 1 : -1; &#125; if (i &lt; 0 || j &lt; 0 || S.charAt(i) != T.charAt(j)) &#123; return i == -1 &amp;&amp; j == -1; &#125; else &#123; i--; j--; &#125; &#125;&#125; 857. Minimum Cost to Hire K Workers Start from the smallest ratio, and then keep add new worker and remove old worker; Use a maximum heap to store worker qualities ratio = max(wage / quality) in K workers, cost = ratio * wage_sum Priority Queue, Array, Math]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer Network Basics]]></title>
+    <url>%2F2019%2F03%2F03%2FComputer-Network-Basics%2F</url>
+    <content type="text"><![CDATA[开始入门Computer Network :) Main concepts The Internet allows for different physical mediums. Light/Air Radio Copper Fiberoptics Every network has different bandwidth and latency. nodes + links bandwidth(capacity): width of the link, number of bits sent latency(delay): length of the link, propagation time Packet Delay = (Data Size / Link Bandwidth) + Link Latency The Internet supports arbitrary sending rates and latencies multiple nodes solution: switching Circuit switching v.s. Packet switching The Internet is packet switching. It does not support circuited network. Network a set of connected devices Switching a device connects multiple communication lines together connecting systems to make one-to-one communication Circuit switching used in telephone network 3 phases1) circuit establish (connection, link by link) A -&gt; switch1 -&gt; switch2 -&gt; B 2) data transfer (source sends data, node will know the path) - No need to include the destination address with the data since the switches know the path 3) circuit disconnect (source sends &quot;teardown circuit&quot; message) Pros fast and simple data transfer once the circuit is established predictable performance, e.g. guaranteed bandwidth Cons bursty traffic? circuits will be idle for a long time waste bandwidth long initial delay recovery from failure is slow Packet switching used in Internet packet = header + payload header: forwarding instructions payload: carried data Properties each packet travels independent no link resources are reserved in advance Statistical Multiplexing Physical links are shared over time Can send from any input that is ready Network Layers Physical Data link Network Transport Session (Application) Presentation (Application) Application Transport -&gt; Socket -&gt; Library -&gt; Application Different layers are not built by the same vendor Yet they can communicate with each other because they use the same protocol Each Layer has multiple implementations Sender set header, receiver read header to know the next layer Network Layering再探讨 Physical: 01010101010101 Data Link: packet Network: more packet/globally routable packet Transport: connection Application: index.html Q: Data Link layer (L2) 和network layer (L3) 都是provide packet delivery, 那么二者有什么区别呢？ Network layer 会引入一个新的header，在这个新header中，包含了IP address！| L2 header | IP header | Payload |Switch只看L2的header，根据L2中的地址(比如MAC 地址)来进行routing。Router只看IP header, 根据IP地址来进行routing。 Router可以连接不同小网络（e.g. Ethernet network, Token Ring network)，小网络中由switch进行连接。 IP层是连接上下各层的桥梁，非常重要！ L2可以有不同的设计实现，但是只有一种L3 design。如果说L2传输的packet，那么L3传输的就是global routable packet。 另一点需要关注的是End to End Argument 我们在设计network architecture的时候，应该把更多的function放在high layer，而不是low layer。 不仅省下了system的redundant work, 还能使高层的application更加flexible。]]></content>
+      <categories>
+        <category>CMU</category>
+        <category>Computer Network</category>
+      </categories>
+      <tags>
+        <tag>cmu</tag>
+        <tag>computer networks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[How Internet works]]></title>
+    <url>%2F2019%2F03%2F03%2FHow-Internet-works%2F</url>
+    <content type="text"><![CDATA[1. You press “ www.google.com “ in the browser2. Browser checks DNS (URL : IP) cache to find the IP address of “ www.google.com “: 1) browser cache 2) OS cache 3) router cache 4) ISP cache 3. If not found, ISP’s DNS server initiates DNS query to search IP recursively from server to server 1) ISP&apos;s DNS server ask other DNS server - ISP : DNS recursor - other : name server 2) Use routing table to find the fastest way 3) Reach correct DNS server, send IP address to browser 4. Browser builds TCP connection with server that matches IP address TCP/IP three-way handshake: 1) Ask server for connection: Client -----SYN------&gt; Server 2) Server has open ports: Client &lt;----SYN/ACK---- Server 3) Client acknowledges: Client ------ACK------&gt; Server 5. Browser sends HTTP request to the server It is time to start transferring data 1) POST request for user authentication 2) GET request asking for web page 6. Server handles request and sends back response - Web server： Apache, ... - Request handler program: PHP, Ruby, ASP.NET,... - Response: JSON, XML, HTML - Response Status: - 1xx: an informational message only - 2xx: success - 3xx: redirect the client to another URL - 4xx: error on the client - 5xx: error on the server 7. Browser displays HTML content, and you see “ www.google.com “ web page 1) Render bare bone HTML skeleton 2) GET CSS, JavaScript files, etc More information see : What happens when you type an URL in the browser and press ENTER]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Binary Search]]></title>
+    <url>%2F2019%2F03%2F02%2FBinary-Search%2F</url>
+    <content type="text"><![CDATA[Binary Search的实现。 Basics BST worst: O(n) Find the first element &gt;= target12345678910111213public int binarySearch(int[] arr, int target) &#123; int low = 0; int high = arr.length - 1; while (low &lt; high) &#123; // no equal here int mid = (low + high) / 2; if (arr[mid] &lt; target) &#123; // mid is not possible to be the answer low = mid + 1; &#125; else &#123; high = mid; &#125; &#125; return low;&#125;]]></content>
+      <categories>
+        <category>Algorithms</category>
+      </categories>
+      <tags>
+        <tag>algorithms</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode today 3]]></title>
+    <url>%2F2019%2F03%2F02%2FLeetcode-today-3%2F</url>
+    <content type="text"><![CDATA[LC 261, 323, 833, 939, 777, 299, 900, 837, 911, 524, 528, 398, 394 261. Graph Valid Tree N nodes only has N-1 edges; A new edge cannot have its two nodes in the set before Union Find 323. Number of Connected Components in an Undirected Graph N nodes, once union succeeded, N -= 1 Union Find 833. Find And Replace in String Use “startsWith” to find valid source and record “index : (source, target)” mapping HashMap, String 939. Minimum Area Rectangle Two points on the diagnal can form a rectangle, just check whether other two points are also in the set HashSet, Geometry 777. Swap Adjacent in LR String X is space, ‘L’ can only go to the left space and ‘R’ can only go to the right space; check ‘L’ and ‘R’ indexes in start String and end String String, Index 299. Bulls and Cows Count the character frequency of two strings, adding up the overlap (min(secret_freq, guess_freq)) String, Frequency Array 900. RLE Iterator Use a curr pointer. 3 conditions: A[curr] &lt; N/ A[curr] == N / A[curr] &gt; N Design, Array 837. New 21 Game Similar to stair climbing but much more complex. Points i can be obtained by points i-1, i-2, …, i-w as the previous points, all conditions have the same probability to happen. Sum up the probability of points K to points N Dynamic Programming, Math, Presum 911. Online Election Count person frequency in an array, record “time : leading person” in TreeMap for search its floorKey TreeMap, Frequency Array 524. Longest Word in Dictionary through Deleting Just iterate to check whether all s2’s character is in s1 and in the same order String, two pointers 528. Random Pick with Weight Calculate the presum of element’s last position, use binary search to find element (We can also do with treemap but a little slower as put is log(N)) Presum, Binary Search, Random 398. Random Pick Index Just map “int : index_list”; Reservoir Sampling is another way(every time meet the target, count++ and put count into the random, when random==0, give result value) HashMap, Random 394. Decode String When meet ‘[‘, stack the current result and everything start from scratch Stack]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Graph]]></title>
+    <url>%2F2019%2F03%2F02%2FGraph%2F</url>
+    <content type="text"><![CDATA[面试中问到的一些Graph问题。 Whether there is a cycle in an undirected graph？ Union find:if two connected node fail to union, there is a cycle Search and HashMap:if the non-parent neighbor of a node has been visited, there is a cycle Whether an undirected graph can be converted into a binary tree? each node only has &lt;= 3 neighbors AND there is no cycle in the graph Leetcode 261. Graph Valid Tree12345678public boolean validTree(int n, int[][] edges) &#123; if (edges.length != n - 1) return false; UF set = new UF(n); for (int[] edge : edges) &#123; if (!set.union(edge[0], edge[1])) return false; &#125; return true;&#125; Leetcode 684. Redundant ConnectionLeetcode 685. Redundant Connection II]]></content>
+      <categories>
+        <category>Algorithms</category>
+        <category>Interview</category>
+      </categories>
+      <tags>
+        <tag>algorithms</tag>
+        <tag>interview</tag>
+        <tag>data structure</tag>
+        <tag>graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode today 2]]></title>
+    <url>%2F2019%2F03%2F01%2FLeetcode-today-2%2F</url>
+    <content type="text"><![CDATA[LC 681, 222 681. Next Closest Time Find the next greater element for each number of the time string. String, next element 222. Count Complete Tree Nodes Keep going the left and keep going the right until right is null. If left is also null, it is a complete tree, count is (1 &lt;&lt; height) - 1; If not, recurse left subtree and right subtree, count is 1 + count(left) + count(right). Tree, Recursion]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Leetcode today 1]]></title>
+    <url>%2F2019%2F03%2F01%2FLeetcode-today-1%2F</url>
+    <content type="text"><![CDATA[947. Most Stones Removed with Same Row or Column For each stone, union its column and row. Count the number of connected components. union find 635. Design Log Storage System Use TreeMap to sort the date, change the string value according to granularity TreeMap, String 776. Split BST Check whether tree root is put to the left part or the right part and change the root accordingly. Recursion 529. Minesweeper First check for 8 directions and calculate the mines count. If the count is 0, do classic BFS. BFS 503. Next Greater Element II Run two cycles. First cycle is the normal cycle; the second cycle never push and will pop if the current number not before it. Stack 694. Number of Distinct Islands Use string to represent the shape of island. HashMap, DFS 230. Kth Smallest Element in a BST inorder traversal 729. My Calendar I Only check the previous start and the next start. TreeMap 730-731. My Calendar II III Start makes value + 1, end makes value - 1. Iterating and adding up all the start and end values to see the current active events. TreeMap 304. Range Sum Query 2D - Immutable Calculate the Presum of 2D array first, which is the 2D area starting from origin. Then any interim area can be calculated by Sum(ABCD)=Sum(OD)−Sum(OB)−Sum(OC)+Sum(OA) Presum]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TreeMap]]></title>
+    <url>%2F2019%2F02%2F28%2FTreeMap%2F</url>
+    <content type="text"><![CDATA[Java中的TreeMap。TreeMap is implemented by black-red tree. Useful Method return a map subMap(fromKey, true, toKey, true) tailMap(fromKey, true) headMap(toKey, true) return a key ceilingKey(lowerBound): &gt;= lowerBound floorKey(upperBound): &lt;= upperBound higherKey(lowerBound): &gt; lowerBound lowerKey(upperBound): &lt; upperBound firstKey() lastKey()]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>data structure</tag>
+        <tag>Java</tag>
+        <tag>Map</tag>
+        <tag>TreeMap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Union Find]]></title>
+    <url>%2F2019%2F02%2F28%2Funion-find%2F</url>
+    <content type="text"><![CDATA[Union Find Implementation。UF class interface1234public class UF UF(int N) int find(int i) void union(int i, int j) M union find operation on N objects: quick find: O(MN) (worst case) quick union: O(MN) (worst case) path-compressed weighted quick union: O(N + MlgN) ~ linear time1234567891011121314151617181920212223242526272829303132class WeightedUF &#123; int[] id; int[] size; public WeightedUF(int n) &#123; id = new int[n]; size = new int[n]; for (int i = 0; i &lt; n; i++) &#123; id[i] = i; size[i] = 1; &#125; &#125; public int find(int i) &#123; if (id[i] != i) &#123; id[i] = find(id[i]); // path compression &#125; return id[i]; &#125; public void union(int i, int j) &#123; i = find(i); j = find(j); if (i == j) return; if (size[i] &lt; size[j]) &#123; // small tree is put under the big tree id[i] = j; size[j] += size[i]; &#125; else &#123; id[j] = i; size[i] += size[j]; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>Algorithms</category>
+      </categories>
+      <tags>
+        <tag>algorithms</tag>
+        <tag>leetcode</tag>
+        <tag>union find</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo Quick Start]]></title>
+    <url>%2F2019%2F02%2F27%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Create a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
